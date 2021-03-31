@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import {useHistory} from "react-router-dom";
-import {useTheme} from "@material-ui/core";
+import {Theme, useTheme} from "@material-ui/core";
+import React, {useState} from "react";
+import {Brightness3, WbSunny} from "@material-ui/icons";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -13,18 +15,23 @@ const Li = styled.li<{ bold?: boolean, color?: string }>`
   cursor: pointer;
   margin-right: 15px;
   font-weight: ${props => props.bold ? 'bold' : ''};
-  color: ${props => props.color}
+  color: ${props => props.color};
+  vertical-align: middle;
 `;
 
-const Nav = styled.nav`
+const Nav = styled.nav<{ theme: Theme }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #282828;
+  background-color: ${props => props.theme.palette.background.default};
   height: 80px;
 `;
 
-export const Header = () => {
+interface Props {
+    handleThemeChange: () => void,
+}
+
+export const Header = (props: Props) => {
     const theme = useTheme();
     const history = useHistory();
 
@@ -32,12 +39,22 @@ export const Header = () => {
 
     const mainYellow = theme.palette.primary.main;
 
+    const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
+
+    const setThemeIcon = () => {
+        props.handleThemeChange();
+        setIsLightTheme(prev => !prev);
+    }
+
     return (
-        <Nav>
+        <Nav theme={theme}>
             <Ul>
                 <Li color={mainYellow} bold onClick={() => historyPush('/projects')}>SZPANEL.PL</Li>
             </Ul>
             <Ul>
+                <Li color={mainYellow} onClick={() => setThemeIcon()}>
+                    {isLightTheme ? <Brightness3/> : <WbSunny/>}
+                </Li>
                 <Li color={mainYellow} onClick={() => historyPush('about')}>O mnie</Li>
                 <Li color={mainYellow} onClick={() => historyPush('projects')}>Projekty</Li>
                 <Li color={mainYellow} onClick={() => historyPush('contact')}>Kontakt</Li>

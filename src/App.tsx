@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,15 +8,33 @@ import Projects from "./routes/Projects";
 import About from "./routes/About";
 import Project from "./routes/Project";
 import Content from './Content';
-import {MuiThemeProvider} from "@material-ui/core";
-import {theme} from "./themes";
+import {createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
+import {yellow} from "@material-ui/core/colors";
 
 
 function App() {
+    const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(true);
+
+    const theme = React.useMemo(
+        () =>
+            createMuiTheme({
+                palette: {
+                    type: prefersDarkMode ? 'dark' : 'light',
+                    primary: {
+                        main: prefersDarkMode ? yellow[500] : "#3f51b5",
+                    },
+                },
+
+            }),
+        [prefersDarkMode],
+    );
+
+
     return (
         <MuiThemeProvider theme={theme}>
+            <CssBaseline/>
             <Router>
-                <Header/>
+                <Header handleThemeChange={() => setPrefersDarkMode(prev => !prev)}/>
                 <Content>
                     <Switch>
                         <Route path="/" component={Projects} exact={true}/>
