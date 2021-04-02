@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import {Theme, useTheme} from "@material-ui/core";
+import styles from "./styles/_variables.module.scss";
 
 const FooterContainer = styled.footer<{ theme: Theme }>`
-  position: absolute;
+  position: sticky;
   bottom: 0;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: ${props => props.theme.palette.background.default};
-  height: 70px;
+  height: ${styles.footerHeight};
 `;
 
 const Footer = () => {

@@ -3,6 +3,7 @@ import {useHistory} from "react-router-dom";
 import {Theme, useTheme} from "@material-ui/core";
 import React, {useState} from "react";
 import {Brightness3, WbSunny} from "@material-ui/icons";
+import styles from "./styles/_variables.module.scss";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -20,11 +21,15 @@ const Li = styled.li<{ bold?: boolean, color?: string }>`
 `;
 
 const Nav = styled.nav<{ theme: Theme }>`
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
   background-color: ${props => props.theme.palette.background.default};
-  height: 80px;
+  height: ${styles.headerHeight};
 `;
 
 interface Props {
@@ -37,7 +42,7 @@ export const Header = (props: Props) => {
 
     const historyPush = (url: string) => history.push(url);
 
-    const mainYellow = theme.palette.primary.main;
+    const primaryMain = theme.palette.primary.main;
 
     const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
 
@@ -49,15 +54,15 @@ export const Header = (props: Props) => {
     return (
         <Nav theme={theme}>
             <Ul>
-                <Li color={mainYellow} bold onClick={() => historyPush('/projects')}>SZPANEL.PL</Li>
+                <Li color={primaryMain} bold onClick={() => historyPush('/projects')}>SZPANEL.PL</Li>
             </Ul>
             <Ul>
-                <Li color={mainYellow} onClick={() => setThemeIcon()}>
+                <Li color={primaryMain} onClick={() => setThemeIcon()}>
                     {isLightTheme ? <Brightness3/> : <WbSunny/>}
                 </Li>
-                <Li color={mainYellow} onClick={() => historyPush('about')}>O mnie</Li>
-                <Li color={mainYellow} onClick={() => historyPush('projects')}>Projekty</Li>
-                <Li color={mainYellow} onClick={() => historyPush('contact')}>Kontakt</Li>
+                <Li color={primaryMain} onClick={() => historyPush('about')}>O mnie</Li>
+                <Li color={primaryMain} onClick={() => historyPush('projects')}>Projekty</Li>
+                <Li color={primaryMain} onClick={() => historyPush('contact')}>Kontakt</Li>
             </Ul>
         </Nav>
     );

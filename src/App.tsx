@@ -7,7 +7,6 @@ import Contact from "./routes/Contact";
 import Projects from "./routes/Projects";
 import About from "./routes/About";
 import Project from "./routes/Project";
-import Content from './Content';
 import {createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
 import {yellow} from "@material-ui/core/colors";
 
@@ -29,13 +28,11 @@ function App() {
         [prefersDarkMode],
     );
 
-
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline/>
             <Router>
                 <Header handleThemeChange={() => setPrefersDarkMode(prev => !prev)}/>
-                <Content>
                     <Switch>
                         <Route path="/" component={Projects} exact={true}/>
                         <Route path="/about" component={About}/>
@@ -43,7 +40,6 @@ function App() {
                         <Route path="/projects/:id" component={Project}/>
                         <Route path="/contact" component={Contact}/>
                     </Switch>
-                </Content>
                 <Footer/>
             </Router>
         </MuiThemeProvider>
