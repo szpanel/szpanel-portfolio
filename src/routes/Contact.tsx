@@ -61,7 +61,7 @@ const Contact = () => {
     return (
         <Box display="flex" className={styles.content} justifyContent="center" alignItems="center">
             <Box width="70vw">
-                <Typography variant="h3" gutterBottom color="primary">
+                <Typography variant="h3" gutterBottom>
                     Formularz kontaktowy
                 </Typography>
                 <Formik
