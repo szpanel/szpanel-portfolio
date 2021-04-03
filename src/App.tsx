@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import Header from "./Header";
+import Header, {Menu} from "./Header";
 import Footer from "./Footer";
-import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import Contact from "./routes/Contact";
 import Projects from "./routes/Projects";
-import About from "./routes/About";
-import Project from "./routes/Project";
-import {createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
-import {yellow} from "@material-ui/core/colors";
+import About from "./routes/About/About";
+import {Container, createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
+import {grey, yellow} from "@material-ui/core/colors";
+import styles from "./styles/_main.module.scss";
 
 
 function App() {
@@ -22,26 +21,49 @@ function App() {
                     primary: {
                         main: prefersDarkMode ? yellow[500] : "#3f51b5",
                     },
+                    secondary: {
+                        main: prefersDarkMode ? "#393939" : grey[100],
+                    }
                 },
-
+                typography: {
+                    fontFamily: `"Open Sans", sans-serif`,
+                }
             }),
         [prefersDarkMode],
     );
 
+    const [selectedMenu, setSelectedMenu] = useState<Menu>(Menu.About);
+
+    const aboutRef = useRef<HTMLDivElement>(null);
+    const projectsRef = useRef<HTMLDivElement>(null);
+    const contactRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        let ref;
+        switch (selectedMenu) {
+            case Menu.About:
+                ref = aboutRef.current;
+                break;
+            case Menu.Projects:
+                ref = projectsRef.current;
+                break;
+            case Menu.Contact:
+                ref = contactRef.current;
+                break;
+        }
+        ref?.scrollIntoView({behavior: "smooth"});
+    }, [selectedMenu]);
+
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline/>
-            <Router>
-                <Header handleThemeChange={() => setPrefersDarkMode(prev => !prev)}/>
-                    <Switch>
-                        <Route path="/" component={Projects} exact={true}/>
-                        <Route path="/about" component={About}/>
-                        <Route path="/projects" exact={true} component={Projects}/>
-                        <Route path="/projects/:id" component={Project}/>
-                        <Route path="/contact" component={Contact}/>
-                    </Switch>
-                <Footer/>
-            </Router>
+            <Header handleMenuClick={setSelectedMenu} handleThemeChange={() => setPrefersDarkMode(prev => !prev)}/>
+            <Container className={styles.content}>
+                <div ref={aboutRef}><About/></div>
+                <div ref={projectsRef}><Projects/></div>
+                <div ref={contactRef}><Contact/></div>
+            </Container>
+            <Footer/>
         </MuiThemeProvider>
     );
 }

@@ -1,9 +1,8 @@
 import styled from "styled-components";
-import {useHistory} from "react-router-dom";
 import {Theme, useTheme} from "@material-ui/core";
 import React, {useState} from "react";
 import {Brightness3, WbSunny} from "@material-ui/icons";
-import styles from "./styles/_variables.module.scss";
+import styles from "./styles/_main.module.scss";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -24,23 +23,30 @@ const Nav = styled.nav<{ theme: Theme }>`
   position: sticky;
   top: 0;
   left: 0;
+  z-index: 100;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: ${props => props.theme.palette.background.default};
+  background-color: ${props => props.theme.palette.secondary.main};
   height: ${styles.headerHeight};
+  font-weight: bold;
+  font-size: 18px;
 `;
 
 interface Props {
     handleThemeChange: () => void,
+    handleMenuClick: (menuOption: Menu) => void,
+}
+
+export enum Menu {
+    About = "about",
+    Projects = "projects",
+    Contact = "contact"
 }
 
 export const Header = (props: Props) => {
     const theme = useTheme();
-    const history = useHistory();
-
-    const historyPush = (url: string) => history.push(url);
 
     const primaryMain = theme.palette.primary.main;
 
@@ -54,18 +60,20 @@ export const Header = (props: Props) => {
     return (
         <Nav theme={theme}>
             <Ul>
-                <Li color={primaryMain} bold onClick={() => historyPush('/projects')}>SZPANEL.PL</Li>
+                <Li><img alt="Page icon" src={theme.palette.type === "dark" ? "/favicon.ico" : "/favicon_blue.ico"}
+                         width="36px"
+                         height="36px"/></Li>
+                <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL.PL</Li>
             </Ul>
             <Ul>
                 <Li color={primaryMain} onClick={() => setThemeIcon()}>
                     {isLightTheme ? <Brightness3/> : <WbSunny/>}
                 </Li>
-                <Li color={primaryMain} onClick={() => historyPush('about')}>O mnie</Li>
-                <Li color={primaryMain} onClick={() => historyPush('projects')}>Projekty</Li>
-                <Li color={primaryMain} onClick={() => historyPush('contact')}>Kontakt</Li>
+                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.About)}>O mnie</Li>
+                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.Projects)}>Projekty</Li>
+                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.Contact)}>Kontakt</Li>
             </Ul>
         </Nav>
     );
 }
-
 export default Header;

@@ -14,7 +14,6 @@ import {Email, Face} from "@material-ui/icons";
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import React from "react";
 import * as Yup from "yup";
-import styles from "../styles/_variables.module.scss";
 
 enum Topic {
     NONE = "Wybierz temat",
@@ -59,11 +58,11 @@ const onSubmit = (values: IContactForm, {setSubmitting}: FormikHelpers<any>) => 
 
 const Contact = () => {
     return (
-        <Box display="flex" className={styles.content} justifyContent="center" alignItems="center">
-            <Box width="70vw">
-                <Typography variant="h3" gutterBottom>
-                    Formularz kontaktowy
-                </Typography>
+        <Box>
+            <Typography variant="h3" gutterBottom>
+                Formularz kontaktowy
+            </Typography>
+            <Box display="flex" justifyContent="center" alignItems="center">
                 <Formik
                     validateOnChange
                     initialValues={initialValues}
@@ -77,7 +76,7 @@ const Contact = () => {
                        , handleBlur
                        , values
                    }) => (
-                    <Form>
+                    <Form style={{width: "60vw"}}>
                         <Box p={1} width={1}>
                             <Field
                                 component={TextField}
