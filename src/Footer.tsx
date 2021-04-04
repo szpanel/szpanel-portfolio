@@ -26,28 +26,32 @@ const Footer = () => {
 
     return <FooterContainer theme={theme}>
         <Grid container justify="space-between" alignItems="center">
-            <Grid container xs={4} direction="column" spacing={2}>
-                <Grid item xs={12}>
-                    <Box display="flex" alignItems="center">
-                        <GitHub/><Link theme={theme} href="https://github.com/szpanel">@szpanel</Link>
-                    </Box>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box display="flex" alignItems="center">
-                        <Facebook/><Link theme={theme} href="https://facebook.com/lukasz.szpanelewski">Łukasz
-                        Szpanelewski</Link>
-                    </Box>
-                </Grid>
-                <Grid item xs={12}>
-                    <Box display="flex" alignItems="center">
-                        <Email/><Link theme={theme}
-                                                      href="mailto:szpanelek@gmail.com">szpanelek@gmail.com</Link>
-                    </Box>
+            <Grid item xs={4}>
+                <Grid container direction="column" spacing={2}>
+                    <Grid item xs={12}>
+                        <Box display="flex" alignItems="center">
+                            <GitHub/><Link theme={theme} href="https://github.com/szpanel">@szpanel</Link>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box display="flex" alignItems="center">
+                            <Facebook/><Link theme={theme} href="https://facebook.com/lukasz.szpanelewski">Łukasz
+                            Szpanelewski</Link>
+                        </Box>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Box display="flex" alignItems="center">
+                            <Email/><Link theme={theme}
+                                          href="mailto:szpanelek@gmail.com">szpanelek@gmail.com</Link>
+                        </Box>
+                    </Grid>
                 </Grid>
             </Grid>
-            <Grid container xs={4} justify="center" alignItems="center">
-                <Grid item><Typography color="primary">© 2021 Lukasz Szpanelewski. All rights
-                    reserved.</Typography></Grid>
+            <Grid item xs={4}>
+                <Grid container justify="center" alignItems="center">
+                    <Grid item><Typography color="primary">© 2021 Lukasz Szpanelewski. All rights
+                        reserved.</Typography></Grid>
+                </Grid>
             </Grid>
             <Grid item xs={4}/>
         </Grid>
