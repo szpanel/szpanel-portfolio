@@ -2,6 +2,7 @@ import {Box, Button, CircularProgress, Grid, Typography, useTheme} from "@materi
 import styles from "../../styles/_main.module.scss";
 import React, {useRef, useState} from "react";
 import Skills from "./Skills";
+import {API_URL} from "../../constans";
 
 const About = () => {
     const theme = useTheme();
@@ -11,10 +12,8 @@ const About = () => {
 
     const handleClick = () => {
         setIsSubmittingBtnCV(true);
-        // TODO: REST API
-        fetch('', {
-            method: "POST",
-            headers: {"Content-Type": "application/json"}
+        fetch(`${API_URL}/cv`, {
+            method: "GET",
         })
             .then(response => response.blob())
             .then(blob => window.URL.createObjectURL(blob))
@@ -23,6 +22,7 @@ const About = () => {
                 link.href = url;
                 link.setAttribute('download', 'LukaszSzpanelewski_resume.pdf');
                 document.body.appendChild(link);
+                link.click();
                 link.parentNode!.removeChild(link);
                 window.URL.revokeObjectURL(url);
             }).then(() => setIsSubmittingBtnCV(false))
