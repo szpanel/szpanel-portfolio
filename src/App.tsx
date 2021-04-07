@@ -3,7 +3,7 @@ import './App.css';
 import Header, {Menu} from "./Header";
 import Footer from "./Footer";
 import Contact from "./routes/Contact";
-import Projects from "./routes/Projects";
+import Projects from "./routes/Projects/Projects";
 import About from "./routes/About/About";
 import {Container, createMuiTheme, CssBaseline, MuiThemeProvider} from "@material-ui/core";
 import {grey, yellow} from "@material-ui/core/colors";
