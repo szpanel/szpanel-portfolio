@@ -152,7 +152,7 @@ const Skills = () => {
         <Grid container spacing={2}>
             {Object.entries(skills)
                 .map(([k, v]) =>
-                    <Grid key={k} item xs={6}>
+                    <Grid key={k} item xs={12} md={6} lg={4}>
                         <Box fontWeight="fontWeightBold">{k}</Box>
                         <BorderLinearProgress variant="determinate" value={v.current}/>
                     </Grid>
