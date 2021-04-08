@@ -62,7 +62,7 @@ const Contact = () => {
             <Typography variant="h3" gutterBottom>
                 Formularz kontaktowy
             </Typography>
-            <Box display="flex" justifyContent="center" alignItems="center">
+            <Box display="flex" justifyContent="center" alignItems="center" my={2}>
                 <Formik
                     validateOnChange
                     initialValues={initialValues}
@@ -76,7 +76,7 @@ const Contact = () => {
                        , handleBlur
                        , values
                    }) => (
-                    <Form style={{width: "60vw"}}>
+                    <Form style={{width: "100%"}}>
                         <Box p={1} width={1}>
                             <Field
                                 component={TextField}
