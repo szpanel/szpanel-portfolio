@@ -1,8 +1,23 @@
 import styled from "styled-components";
-import {Theme, useTheme} from "@material-ui/core";
-import React, {useState} from "react";
-import {Brightness3, WbSunny} from "@material-ui/icons";
+import {
+    AppBar,
+    Avatar,
+    Divider,
+    Drawer,
+    IconButton,
+    List,
+    ListItem,
+    ListItemText,
+    Theme,
+    Toolbar,
+    Typography,
+    useTheme
+} from "@material-ui/core";
+import React, {useEffect, useState} from "react";
+import {Brightness4, Brightness7, ChevronLeft, ChevronRight, MenuOpen} from "@material-ui/icons";
 import styles from "./styles/_main.module.scss";
+import {createStyles, makeStyles} from "@material-ui/styles";
+import clsx from "clsx";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -40,12 +55,57 @@ interface Props {
 }
 
 export enum Menu {
-    About = "about",
-    Projects = "projects",
-    Contact = "contact"
+    About = "O MNIE",
+    Projects = "PROJEKTY",
+    Contact = "KONTAKT"
 }
 
+const drawerWidth = 200;
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        appBar: {
+            transition: theme.transitions.create(['margin', 'width'], {
+                easing: theme.transitions.easing.sharp,
+                duration: theme.transitions.duration.leavingScreen,
+            }),
+            color: theme.palette.primary.main,
+            background: theme.palette.secondary.main,
+        },
+        appBarShift: {
+            width: `calc(100% - ${drawerWidth}px)`,
+            transition: theme.transitions.create(['margin', 'width'], {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+            }),
+            marginRight: drawerWidth,
+        },
+        title: {
+            flexGrow: 1,
+        },
+        hide: {
+            display: 'none',
+        },
+        drawer: {
+            width: drawerWidth,
+            flexShrink: 0,
+        },
+        drawerPaper: {
+            width: drawerWidth,
+        },
+        drawerHeader: {
+            display: 'flex',
+            alignItems: 'center',
+            padding: theme.spacing(0, 1),
+            // necessary for content to be below app bar
+            ...theme.mixins.toolbar,
+            justifyContent: 'flex-start',
+        },
+    }),
+);
+
 export const Header = (props: Props) => {
+    const classes = useStyles();
     const theme = useTheme();
 
     const primaryMain = theme.palette.primary.main;
@@ -57,23 +117,95 @@ export const Header = (props: Props) => {
         setIsLightTheme(prev => !prev);
     }
 
-    return (
-        <Nav theme={theme}>
-            <Ul>
-                <Li><img alt="Page icon" src={theme.palette.type === "dark" ? "/favicon.ico" : "/favicon_blue.ico"}
-                         width="36px"
-                         height="36px"/></Li>
-                <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL.PL</Li>
-            </Ul>
-            <Ul>
-                <Li color={primaryMain} onClick={() => setThemeIcon()}>
-                    {isLightTheme ? <Brightness3/> : <WbSunny/>}
-                </Li>
-                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.About)}>O mnie</Li>
-                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.Projects)}>Projekty</Li>
-                <Li color={primaryMain} onClick={() => props.handleMenuClick(Menu.Contact)}>Kontakt</Li>
-            </Ul>
-        </Nav>
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const [mobileView, setIsMobileView] = useState(false);
+
+    const handleDrawerOpen = () => setIsDrawerOpen(true);
+    const handleDrawerClose = () => setIsDrawerOpen(false);
+
+    useEffect(() => {
+        const setResponsiveness = () => {
+            setIsMobileView(window.innerWidth < 900);
+        };
+        setResponsiveness();
+        window.addEventListener("resize", setResponsiveness);
+    }, []);
+
+    return (mobileView ? <>
+                <AppBar
+                    position="sticky"
+                    className={clsx(classes.appBar, {[classes.appBarShift]: isDrawerOpen,})}>
+                    <Toolbar color="secondary">
+                        <Avatar variant="square" alt="Page icon"
+                                src={theme.palette.type === "dark" ? "/favicon.ico" : "/favicon_blue.ico"}/>
+                        <Typography variant="h6" noWrap className={classes.title}>
+                            szpanel.pl
+                        </Typography>
+                        <IconButton
+                            color="inherit"
+                            aria-label="change theme"
+                            edge="end"
+                            onClick={setThemeIcon}>
+                            {isLightTheme ? <Brightness7/> : <Brightness4/>}
+                        </IconButton>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            edge="end"
+                            onClick={handleDrawerOpen}
+                            className={clsx(isDrawerOpen && classes.hide)}>
+                            {!isDrawerOpen && <MenuOpen/>}
+                        </IconButton>
+                    </Toolbar>
+                </AppBar>
+                <Drawer
+                    className={classes.drawer}
+                    variant="persistent"
+                    anchor="right"
+                    open={isDrawerOpen}
+                    classes={{paper: classes.drawerPaper,}}>
+                    <div className={classes.drawerHeader}>
+                        <IconButton onClick={handleDrawerClose}>
+                            {theme.direction === 'rtl' ? <ChevronLeft/> : <ChevronRight/>}
+                        </IconButton>
+                    </div>
+                    <Divider/>
+                    <List>
+                        {Object.values(Menu).map(menu => (
+                            <ListItem button key={menu}>
+                                <ListItemText primary={menu.toUpperCase()} onClick={() => props.handleMenuClick(menu)}/>
+                            </ListItem>
+                        ))}
+                    </List>
+                </Drawer>
+            </> :
+            <Nav theme={theme}>
+                <Ul>
+                    <IconButton
+                        color="inherit"
+                        aria-label="change theme"
+                        edge="start">
+                        <Avatar
+                            variant="square"
+                            src={isLightTheme ? "/favicon.ico" : "/favicon_blue.ico"}/>
+                    </IconButton>
+                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL.PL</Li>
+                </Ul>
+                <Ul>
+                    <IconButton
+                        color="primary"
+                        aria-label="change theme"
+                        edge="start"
+                        onClick={setThemeIcon}>
+                        {isLightTheme ? <Brightness7/> : <Brightness4/>}
+                    </IconButton>
+                    {Object.values(Menu).map((menu) =>
+                        <Li key={menu} color={primaryMain}
+                            onClick={() => props.handleMenuClick(menu)}>{menu}
+                        </Li>
+                    )}
+                </Ul>
+            </Nav>
     );
 }
 export default Header;

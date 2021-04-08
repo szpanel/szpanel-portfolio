@@ -15,6 +15,7 @@
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/yup": "^0.29.11",
+    "clsx": "^1.1.1",
     "fontsource-roboto": "^4.0.0",
     "formik": "^2.2.6",
     "formik-material-ui": "^3.0.1",
