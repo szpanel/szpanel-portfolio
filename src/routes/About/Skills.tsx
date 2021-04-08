@@ -144,6 +144,7 @@ const Skills = () => {
             }
         }
         window.addEventListener("scroll", handleScroll);
+        /* eslint-disable */
     }, []);
 
     return <Box marginTop={2}>
