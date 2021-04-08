@@ -31,19 +31,19 @@ const About = () => {
 
     return <Box paddingTop={2}>
         <Grid container justify="center" alignItems="center" direction="column">
-            <Typography variant="h2">Łukasz Szpanelewski</Typography>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h2" align="center">Łukasz Szpanelewski</Typography>
+            <Typography variant="h6" gutterBottom align="center">
                 <Typography component="q">The best way to predict the future is to create it.</Typography>
             </Typography>
             <Box className={styles.circle} style={{backgroundColor: theme.palette.secondary.main}}>
-                <img src={theme.palette.type === "dark" ? '/favicon.ico' : '/favicon_blue.ico'}
+                <img srcSet={theme.palette.type === "dark" ? '/favicon.ico' : '/favicon_blue.ico'}
                      width="100%"
                      height="100%"
                      alt="SZ page icon"/>
             </Box>
         </Grid>
         <Grid container alignItems="center" direction="column" style={{marginBottom: "16px"}}>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8} lg={6}>
                 <Typography component="p" align="justify">
                     Dzień dobry 👋<br/>
                     Swoją prawidzwą przygodę z programowaniem rozpocząłem pod koniec 2017 roku wraz z rozpoczęciem
