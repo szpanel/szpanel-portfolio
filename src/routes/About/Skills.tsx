@@ -1,5 +1,5 @@
 import {Box, Grid, LinearProgress, Theme, Typography} from "@material-ui/core";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {createStyles, withStyles} from "@material-ui/styles";
 
 const BorderLinearProgress = withStyles((theme: Theme) =>
@@ -14,83 +14,148 @@ const BorderLinearProgress = withStyles((theme: Theme) =>
     }),
 )(LinearProgress);
 
+enum Skill {
+    FIREBASE = "Firebase",
+    JAVA = "Java",
+    SPRING = "Spring",
+    GIT = "Git",
+    KOTLIN = "Kotlin",
+    JAVASCRIPT = "JavaScript",
+    ANDROID = "Android",
+    REACT = "React",
+    NODE = "Node.JS",
+    HTMLCSS = "HTML/CSS/JS",
+    LINUX = "Linux",
+    CPP = "C++",
+    PHP = "Php",
+    JIRA = "Jira",
+    AWS = "AWS S3",
+    MONGO = "Mongo",
+    MYSQL = "MySQL",
+}
+
+interface SkillMeta {
+    current: number,
+    max: number
+}
+
 const Skills = () => {
+
+    const [skills, setSkills] = useState<Record<Skill, SkillMeta>>({
+        [Skill.FIREBASE]: {
+            current: 0,
+            max: 85
+        },
+        [Skill.JAVA]: {
+            current: 0,
+            max: 80
+        },
+        [Skill.SPRING]: {
+            current: 0,
+            max: 30
+        },
+        [Skill.GIT]: {
+            current: 0,
+            max: 50
+        },
+        [Skill.KOTLIN]: {
+            current: 0,
+            max: 25
+        },
+        [Skill.JAVASCRIPT]: {
+            current: 0,
+            max: 75
+        },
+        [Skill.ANDROID]: {
+            current: 0,
+            max: 35
+        },
+        [Skill.REACT]: {
+            current: 0,
+            max: 45
+        },
+        [Skill.NODE]: {
+            current: 0,
+            max: 35
+        },
+        [Skill.HTMLCSS]: {
+            current: 0,
+            max: 60
+        },
+        [Skill.LINUX]: {
+            current: 0,
+            max: 45
+        },
+        [Skill.CPP]: {
+            current: 0,
+            max: 10
+        },
+        [Skill.PHP]: {
+            current: 0,
+            max: 15
+        },
+        [Skill.JIRA]: {
+            current: 0,
+            max: 15
+        },
+        [Skill.AWS]: {
+            current: 0,
+            max: 40
+        },
+        [Skill.MONGO]: {
+            current: 0,
+            max: 45
+        },
+        [Skill.MYSQL]: {
+            current: 0,
+            max: 35
+        },
+    });
+
+
+    const loadSkills = () => {
+        const maxVal = Math.max.apply(Math, Object.values(skills).map((o) => o.max));
+        const interval = setInterval(() => {
+            // @ts-ignore
+            setSkills((prevState) => Object.entries(prevState)
+                .reduce((acc: Record<string, SkillMeta>, [k, v]) => {
+                    if (v.current >= maxVal) {
+                        clearInterval(interval);
+                        acc[k] = v;
+                    } else if (v.current < v.max) {
+                        acc[k] = {
+                            current: v.current + 1,
+                            max: v.max
+                        };
+                    } else {
+                        acc[k] = v;
+                    }
+                    return acc;
+                }, {})
+            );
+        }, 20);
+    };
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 150) {
+                loadSkills();
+                window.removeEventListener("scroll", handleScroll);
+            }
+        }
+        window.addEventListener("scroll", handleScroll);
+    }, []);
+
     return <Box marginTop={2}>
         <Typography variant="h3" gutterBottom>Umiejętności</Typography>
         <Grid container spacing={2}>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Firebase</Box>
-                <BorderLinearProgress variant="determinate" value={85}/>
-            </Grid>
-
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Java</Box>
-                <BorderLinearProgress variant="determinate" value={80}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Spring</Box>
-                <BorderLinearProgress variant="determinate" value={30}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Git</Box>
-                <BorderLinearProgress variant="determinate" value={50}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Kotlin</Box>
-                <BorderLinearProgress variant="determinate" value={25}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">JavaScript</Box>
-                <BorderLinearProgress variant="determinate" value={75}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Android App Dev</Box>
-                <BorderLinearProgress variant="determinate" value={35}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">React</Box>
-                <BorderLinearProgress variant="determinate" value={45}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Node.js</Box>
-                <BorderLinearProgress variant="determinate" value={35}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">HTML/CSS</Box>
-                <BorderLinearProgress variant="determinate" value={60}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Linux</Box>
-                <BorderLinearProgress variant="determinate" value={45}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">C++</Box>
-                <BorderLinearProgress variant="determinate" value={10}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">PHP</Box>
-                <BorderLinearProgress variant="determinate" value={15}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">JIRA</Box>
-                <BorderLinearProgress variant="determinate" value={15}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Kotlin</Box>
-                <BorderLinearProgress variant="determinate" value={25}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">Amazon AWS</Box>
-                <BorderLinearProgress variant="determinate" value={40}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">MongoDB</Box>
-                <BorderLinearProgress variant="determinate" value={45}/>
-            </Grid>
-            <Grid item xs={6}>
-                <Box fontWeight="fontWeightBold">MySQL</Box>
-                <BorderLinearProgress variant="determinate" value={35}/>
-            </Grid>
+            {Object.entries(skills)
+                .map(([k, v]) =>
+                    <Grid key={k} item xs={6}>
+                        <Box fontWeight="fontWeightBold">{k}</Box>
+                        <BorderLinearProgress variant="determinate" value={v.current}/>
+                    </Grid>
+                )}
         </Grid>
     </Box>
 }
