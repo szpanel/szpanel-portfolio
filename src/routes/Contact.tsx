@@ -14,6 +14,9 @@ import {Email, Face} from "@material-ui/icons";
 import {Field, Form, Formik, FormikHelpers} from "formik";
 import React from "react";
 import * as Yup from "yup";
+import {load} from "recaptcha-v3";
+import {API_URL, SITE_KEY} from "../constans";
+import Alerts, {useAlerts} from "../Alerts";
 
 enum Topic {
     NONE = "Wybierz temat",
@@ -27,6 +30,11 @@ interface IContactForm {
     topic: Topic,
     email: string,
     content: string,
+}
+
+interface ContactRecaptchaResponse {
+    success: boolean,
+    message: string
 }
 
 /** FORMIK **/
@@ -47,16 +55,26 @@ const validationSchema = Yup.object().shape({
     content: Yup.string().required("Nie zapomniałeś/aś o czymś? :)")
 });
 
-const onSubmit = (values: IContactForm, {setSubmitting}: FormikHelpers<any>) => {
-    console.warn('submitted');
-    setSubmitting(true);
-    console.log(`values\n${values}`);
-    setTimeout(() => setSubmitting(false), 5000);
-}
-
 /** COMPONENT **/
 
 const Contact = () => {
+
+    const [alertList, addAlert, removeAlert] = useAlerts();
+
+    const onSubmit = async (values: IContactForm, {setSubmitting}: FormikHelpers<any>) => {
+        setSubmitting(true);
+        const response = await (await load(SITE_KEY)).execute("submit");
+        fetch(`${API_URL}/contact`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({token: response, ...values})
+        }).then(result => result.json())
+            .then(result => result as ContactRecaptchaResponse)
+            .then(response =>
+                addAlert({type: response.success ? "success" : "error", message: response.message})
+            );
+    }
+
     return (
         <Box>
             <Typography variant="h3" gutterBottom>
@@ -151,6 +169,7 @@ const Contact = () => {
                                 variant="filled"
                                 onBlur={handleBlur}
                                 value={values.content}
+                                onChange={handleChange}
                                 error={touched.content && Boolean(errors.content)}
                                 helperText={touched.content && errors.content}
                                 multiline
@@ -170,6 +189,7 @@ const Contact = () => {
                 )}
                 </Formik>
             </Box>
+            <Alerts alerts={alertList} removeAlert={removeAlert}/>
         </Box>
     )
 };
