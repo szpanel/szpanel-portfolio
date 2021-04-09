@@ -54,7 +54,7 @@ const About = () => {
                     musiałem
                     wiedzieć o wszystkich wdrożonych nowościach. Po drodze
                     poznałem wiele interesujących mnie technologii i frameworków. Zawsze podobała mi się prostota
-                    pisania kodu w JS, a jednocześnie frustruwał mnie fakt, że jest to język typowany dynamicznie.
+                    pisania kodu w JS, a jednocześnie frustrował mnie fakt, że jest to język typowany dynamicznie.
                     Moje
                     podejście do tego języka zmieniło się w momencie, w którym poznałem technologię jaką jest
                     Typescript. Środowisko te sprawia, że świetnie odnajduję się jako programista JS czy Node.js i
