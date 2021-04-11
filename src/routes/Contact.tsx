@@ -4,7 +4,7 @@ import {
     FormControl,
     FormHelperText,
     InputAdornment,
-    InputLabel,
+    InputLabel, Link,
     MenuItem,
     Select,
     TextField,
@@ -177,6 +177,10 @@ const Contact = () => {
                                 rows={5}/>
                         </Box>
                         <Box p={1} width={1}>
+                            <em>Formularz kontaktowy tymczasowo wyłączony. Skontaktuj się ze
+                                mną bezpośrednio poprzez email:&nbsp;
+                                <Link color="primary" href="mailto:szpanelek@gmail.com">szpanelek@gmail.com</Link>
+                            </em>
                             <Button
                                 type="submit"
                                 disabled={isSubmitting}
