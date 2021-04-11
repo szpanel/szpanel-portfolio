@@ -139,7 +139,7 @@ export const Header = (props: Props) => {
                         <Avatar variant="square" alt="Page icon"
                                 src={theme.palette.type === "dark" ? "/favicon.ico" : "/favicon_blue.ico"}/>
                         <Typography variant="h6" noWrap className={classes.title}>
-                            szpanel.pl
+                            szpanel
                         </Typography>
                         <IconButton
                             color="inherit"
@@ -189,7 +189,7 @@ export const Header = (props: Props) => {
                             variant="square"
                             src={isLightTheme ? "/favicon.ico" : "/favicon_blue.ico"}/>
                     </IconButton>
-                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL.PL</Li>
+                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL</Li>
                 </Ul>
                 <Ul>
                     <IconButton
