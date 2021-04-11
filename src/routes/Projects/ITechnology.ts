@@ -40,7 +40,7 @@ export class Technology implements ITechnology {
 
     /** DATABASES **/
 
-    static readonly MONGODB = new Technology("MONGODB", "mongodb.svg", "https://nodejs.org/");
+    static readonly MONGODB = new Technology("MONGODB", "mongodb.svg", "https://www.mongodb.com/");
     /*static readonly MYSQL = new Technology("MYSQL", "mysql.png", "https://www.mysql.com/");*/
 
     /** FRAMEWORKS **/
