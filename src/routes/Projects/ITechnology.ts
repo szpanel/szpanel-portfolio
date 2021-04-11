@@ -25,7 +25,7 @@ export class Technology implements ITechnology {
 
     private getIconPath = (path: string) => `/images/technologies/${path}`;
 
-    static readonly ALL = new Technology("ALL");
+    static readonly ALL = new Technology("WSZYSTKIE");
 
     static readonly FRONTEND = new Technology("FRONT-END", "frontend");
     static readonly BACKEND = new Technology("BACK-END", "backend");
