@@ -62,7 +62,7 @@ const About = () => {
                 </Typography>
             </Grid>
             <Box m={2}>
-                <Button disabled={isSubmittingBtnCV} onClick={handleClick} ref={btnCVRef} size="large"
+                <Button disabled={true} onClick={handleClick} ref={btnCVRef} size="large"
                         variant="outlined">
                     {isSubmittingBtnCV ? <CircularProgress color="primary" size={35}/> : `Pobierz MOJE CV`}</Button>
             </Box>
