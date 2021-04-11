@@ -183,7 +183,7 @@ const Contact = () => {
                             </em>
                             <Button
                                 type="submit"
-                                disabled={isSubmitting}
+                                disabled={true}
                                 variant="outlined"
                                 color="primary"
                                 size="large"
