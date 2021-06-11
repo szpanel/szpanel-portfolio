@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import './App.css';
-import Header, {Menu} from "./Header";
+import Header, {MenuItems, ValueOfMenu} from "./Header/Header";
 import Footer from "./Footer";
 import Contact from "./routes/Contact";
 import Projects from "./routes/Projects/Projects";
@@ -34,7 +34,7 @@ function App() {
 
     const theme = responsiveFontSizes(defaultTheme);
 
-    const [selectedMenu, setSelectedMenu] = useState<Menu>(Menu.About);
+    const [selectedMenu, setSelectedMenu] = useState<ValueOfMenu>(MenuItems.About);
 
     const aboutRef = useRef<HTMLDivElement>(null);
     const projectsRef = useRef<HTMLDivElement>(null);
@@ -43,13 +43,13 @@ function App() {
     useEffect(() => {
         let ref;
         switch (selectedMenu) {
-            case Menu.About:
+            case MenuItems.About:
                 ref = aboutRef.current;
                 break;
-            case Menu.Projects:
+            case MenuItems.Projects:
                 ref = projectsRef.current;
                 break;
-            case Menu.Contact:
+            case MenuItems.Contact:
                 ref = contactRef.current;
                 break;
         }

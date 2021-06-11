@@ -4,10 +4,12 @@ import {Done} from "@material-ui/icons";
 import {projects} from "./projectsList";
 import {Technology} from "./ITechnology";
 import Project, {IProject} from "./Project";
+import {useTranslation} from "react-i18next";
 
 const Projects = () => {
 
     const [projectsFilter, setProjectsFilter] = useState<Technology>(Technology.ALL);
+    const {t} = useTranslation();
 
     const handleClick = (filter: Technology) => {
         if (filter !== projectsFilter) {
@@ -19,7 +21,7 @@ const Projects = () => {
 
 
     return <Box paddingTop={2}>
-        <Typography variant="h3" gutterBottom>Projekty</Typography>
+        <Typography variant="h3" gutterBottom>{t('projects.caption')}</Typography>
         <Box display="flex" flexDirection="row" justifyContent="center" gridGap={10} flexWrap="wrap">
             {Object.values(Technology).map((technology: Technology) =>
                 <Chip

@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import "./locales/i18n";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

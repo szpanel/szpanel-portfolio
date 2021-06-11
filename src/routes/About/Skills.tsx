@@ -1,6 +1,7 @@
 import {Box, Grid, LinearProgress, Theme, Typography} from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {createStyles, withStyles} from "@material-ui/styles";
+import {useTranslation} from "react-i18next";
 
 const BorderLinearProgress = withStyles((theme: Theme) =>
     createStyles({
@@ -136,6 +137,8 @@ const Skills = () => {
         }, 20);
     };
 
+    const {t} = useTranslation();
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 150) {
@@ -148,7 +151,7 @@ const Skills = () => {
     }, []);
 
     return <Box marginTop={2}>
-        <Typography variant="h3" gutterBottom>Umiejętności</Typography>
+        <Typography variant="h3" gutterBottom>{t('skills')}</Typography>
         <Grid container spacing={2}>
             {Object.entries(skills)
                 .map(([k, v]) =>
