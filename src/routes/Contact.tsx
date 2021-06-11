@@ -17,17 +17,12 @@ import * as Yup from "yup";
 import {load} from "recaptcha-v3";
 import {API_URL, SITE_KEY} from "../constans";
 import Alerts, {useAlerts} from "../Alerts";
-
-enum Topic {
-    NONE = "Wybierz temat",
-    ORDER = "Zlecenie",
-    QUESTION = "Pytanie",
-    OTHER = "Inny"
-}
+import {useTranslation} from "react-i18next";
+import i18n from "../locales/i18n";
 
 interface IContactForm {
     recipient: string,
-    topic: Topic,
+    topic: string,
     email: string,
     content: string,
 }
@@ -37,22 +32,28 @@ interface ContactRecaptchaResponse {
     message: string
 }
 
+type topics = {
+    [key in 'NONE' | 'ORDER' | 'QUESTION' | 'OTHER']: string;
+};
+
+const TOPICS: topics = i18n.t('contactForm.topics', {returnObjects: true});
+
 /** FORMIK **/
 
 const initialValues = {
     recipient: "",
-    topic: Topic.NONE,
+    topic: TOPICS.NONE,
     email: "",
     content: ""
 }
 
 const validationSchema = Yup.object().shape({
     recipient: Yup.string()
-        .required("Zostaw po sobie chociaż nick"),
-    email: Yup.string().email("Nieprawidłowy email")
-        .required("Daj mi możliwość odpowiedzenia Ci w jakiś sposób"),
-    topic: Yup.mixed().not([Topic.NONE], "O czym rozmawiamy?"),
-    content: Yup.string().required("Nie zapomniałeś/aś o czymś? :)")
+        .required(i18n.t('contactForm.validation.introduceYourself')),
+    email: Yup.string().email(i18n.t('contactForm.validation.invalidEmail'))
+        .required(i18n.t('contactForm.validation.emptyEmail')),
+    topic: Yup.mixed().not([TOPICS.NONE], i18n.t('contactForm.validation.topic')),
+    content: Yup.string().required(i18n.t('contactForm.validation.content'))
 });
 
 /** COMPONENT **/
@@ -60,6 +61,7 @@ const validationSchema = Yup.object().shape({
 const Contact = () => {
 
     const [alertList, addAlert, removeAlert] = useAlerts();
+    const {t} = useTranslation();
 
     const onSubmit = async (values: IContactForm, {setSubmitting}: FormikHelpers<any>) => {
         setSubmitting(true);
@@ -78,7 +80,7 @@ const Contact = () => {
     return (
         <Box>
             <Typography variant="h3" gutterBottom>
-                Formularz kontaktowy
+                {t('contactForm.caption')}
             </Typography>
             <Box display="flex" justifyContent="center" alignItems="center" my={2}>
                 <Formik
@@ -100,7 +102,7 @@ const Contact = () => {
                                 component={TextField}
                                 id="recipient"
                                 name="recipient"
-                                label="Przedstaw się"
+                                label={t('contactForm.introduceYourself')}
                                 variant="filled"
                                 value={values.recipient}
                                 onChange={handleChange}
@@ -118,7 +120,7 @@ const Contact = () => {
                         </Box>
                         <Box p={1} width={1}>
                             <FormControl variant="filled" fullWidth error={errors.topic != null}>
-                                <InputLabel id="topicLabel">Temat</InputLabel>
+                                <InputLabel id="topicLabel">{t('contactForm.topic')}</InputLabel>
                                 <Field
                                     component={Select}
                                     labelId="topicLabel"
@@ -128,11 +130,11 @@ const Contact = () => {
                                     onChange={handleChange("topic")}
                                     onBlur={handleBlur("topic")}
                                     error={touched.topic && Boolean(errors.topic)}>
-                                    <MenuItem key={Topic.NONE} value={Topic.NONE}>
-                                        <em>{Topic.NONE}</em>
+                                    <MenuItem key={TOPICS.NONE} value={TOPICS.NONE}>
+                                        <em>{TOPICS.NONE}</em>
                                     </MenuItem>
-                                    {Object.entries(Topic).map(([key, value]) =>
-                                        value !== Topic.NONE &&
+                                    {Object.entries(TOPICS).map(([key, value]) =>
+                                        value !== TOPICS.NONE &&
                                         <MenuItem key={key} value={value}>{value}</MenuItem>
                                     )}
                                 </Field>
@@ -144,7 +146,7 @@ const Contact = () => {
                                 component={TextField}
                                 id="email"
                                 name="email"
-                                label="Email kontaktowy"
+                                label={t('contactForm.contactEmail')}
                                 variant="filled"
                                 onBlur={handleBlur}
                                 value={values.email}
@@ -165,7 +167,7 @@ const Contact = () => {
                                 component={TextField}
                                 id="content"
                                 name="content"
-                                label="Treść"
+                                label={t('contactForm.content')}
                                 variant="filled"
                                 onBlur={handleBlur}
                                 value={values.content}
@@ -177,8 +179,7 @@ const Contact = () => {
                                 rows={5}/>
                         </Box>
                         <Box p={1} width={1}>
-                            <em>Formularz kontaktowy tymczasowo wyłączony. Skontaktuj się ze
-                                mną bezpośrednio poprzez email:&nbsp;
+                            <em>{t('contactForm.formTemporaryDisabled')}&nbsp;
                                 <Link color="primary" href="mailto:szpanelek@gmail.com">szpanelek@gmail.com</Link>
                             </em>
                             <Button
@@ -187,7 +188,7 @@ const Contact = () => {
                                 variant="outlined"
                                 color="primary"
                                 size="large"
-                                fullWidth>Wyślij</Button>
+                                fullWidth>{t('contactForm.sendBtn')}</Button>
                         </Box>
                     </Form>
                 )}

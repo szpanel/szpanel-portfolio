@@ -3,12 +3,15 @@ import styles from "../../styles/_main.module.scss";
 import React, {useRef, useState} from "react";
 import Skills from "./Skills";
 import {API_URL} from "../../constans";
+import {useTranslation} from "react-i18next";
 
 const About = () => {
     const theme = useTheme();
 
     const btnCVRef = useRef<HTMLButtonElement>(null);
     const [isSubmittingBtnCV, setIsSubmittingBtnCV] = useState<boolean>(false);
+
+    const {t} = useTranslation();
 
     const handleClick = () => {
         setIsSubmittingBtnCV(true);
@@ -33,7 +36,7 @@ const About = () => {
         <Grid container justify="center" alignItems="center" direction="column">
             <Typography variant="h2" align="center">Łukasz Szpanelewski</Typography>
             <Typography variant="h6" gutterBottom align="center">
-                <Typography component="q">The best way to predict the future is to create it.</Typography>
+                <Typography component="q">{t('aboutMe.quote')}</Typography>
             </Typography>
             <Box className={styles.circle} style={{backgroundColor: theme.palette.secondary.main}}>
                 <img srcSet={theme.palette.type === "dark" ? '/favicon.ico' : '/favicon_blue.ico'}
@@ -45,28 +48,19 @@ const About = () => {
         <Grid container alignItems="center" direction="column" style={{marginBottom: "16px"}}>
             <Grid item xs={12} md={8} lg={6}>
                 <Typography component="p" align="justify">
-                    Dzień dobry 👋<br/>
-                    Swoją prawidzwą przygodę z programowaniem rozpocząłem pod koniec 2017 roku wraz z rozpoczęciem
-                    studiów. Pierwszymi poznanymi przeze mnie językami programowania były: C++, HTML/CSS/JS. W
-                    trakcie
-                    studiów wybrałem specjalizację Systemy i Aplikacje Mobilne, gdzie zacząłem rozwijać się w
-                    kierunku Javy. Język ten spodobał mi się do tego stopnia, że do niedawna tj. do javy 15,
-                    musiałem
-                    wiedzieć o wszystkich wdrożonych nowościach. Po drodze
-                    poznałem wiele interesujących mnie technologii i frameworków. Zawsze podobała mi się prostota
-                    pisania kodu w JS, a jednocześnie frustrował mnie fakt, że jest to język typowany dynamicznie.
-                    Moje
-                    podejście do tego języka zmieniło się w momencie, w którym poznałem technologię jaką jest
-                    Typescript. Środowisko te sprawia, że świetnie odnajduję się jako programista JS czy Node.js i
-                    aktualnie rozwijam się w tym kierunu.
+                    {t('aboutMe.description')}
                 </Typography>
             </Grid>
             <Box m={2}>
-                <Button disabled={true} onClick={handleClick} ref={btnCVRef} size="large"
-                        variant="outlined">
-                    {isSubmittingBtnCV ? <CircularProgress color="primary" size={35}/> : `Pobierz MOJE CV`}</Button>
+                <Button disabled={true}
+                        onClick={handleClick}
+                        ref={btnCVRef} size="large"
+                        variant="outlined"
+                >
+                    {isSubmittingBtnCV ? <CircularProgress color="primary" size={35}/> : t('aboutMe.downloadCv')}
+                </Button>
             </Box>
-            <em>Ostatnia aktualizacja CV: 03.04.2021</em>
+            <em>{t('aboutMe.latestUpdate', {date: "03.04.2021"})}</em>
         </Grid>
         <Skills/>
     </Box>

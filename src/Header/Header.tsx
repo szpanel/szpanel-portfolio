@@ -15,9 +15,11 @@ import {
 } from "@material-ui/core";
 import React, {useEffect, useState} from "react";
 import {Brightness4, Brightness7, ChevronLeft, ChevronRight, MenuOpen} from "@material-ui/icons";
-import styles from "./styles/_main.module.scss";
+import styles from "../styles/_main.module.scss";
 import {createStyles, makeStyles} from "@material-ui/styles";
 import clsx from "clsx";
+import ChangeLanguageComponent from "./ChangeLanguageComponent";
+import i18n from "../locales/i18n";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -51,13 +53,21 @@ const Nav = styled.nav<{ theme: Theme }>`
 
 interface Props {
     handleThemeChange: () => void,
-    handleMenuClick: (menuOption: Menu) => void,
+    handleMenuClick: (menuOption: ValueOfMenu) => void,
 }
 
-export enum Menu {
-    About = "O MNIE",
-    Projects = "PROJEKTY",
-    Contact = "KONTAKT"
+export type ValueOfMenu = Menu[keyof Menu];
+
+export interface Menu {
+    About: string,
+    Projects: string,
+    Contact: string,
+}
+
+export const MenuItems: Menu = {
+    About: i18n.t('header.aboutMe'),
+    Projects: i18n.t('header.projects'),
+    Contact: i18n.t('header.contact'),
 }
 
 const drawerWidth = 200;
@@ -171,7 +181,7 @@ export const Header = (props: Props) => {
                     </div>
                     <Divider/>
                     <List>
-                        {Object.values(Menu).map(menu => (
+                        {Object.values(MenuItems).map(menu => (
                             <ListItem button key={menu}>
                                 <ListItemText primary={menu.toUpperCase()} onClick={() => props.handleMenuClick(menu)}/>
                             </ListItem>
@@ -189,17 +199,22 @@ export const Header = (props: Props) => {
                             variant="square"
                             src={isLightTheme ? "/favicon.ico" : "/favicon_blue.ico"}/>
                     </IconButton>
-                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(Menu.About)}>SZPANEL</Li>
+                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(MenuItems.About)}>SZPANEL</Li>
                 </Ul>
                 <Ul>
-                    <IconButton
-                        color="primary"
-                        aria-label="change theme"
-                        edge="start"
-                        onClick={setThemeIcon}>
-                        {isLightTheme ? <Brightness7/> : <Brightness4/>}
-                    </IconButton>
-                    {Object.values(Menu).map((menu) =>
+                    <Li>
+                        <ChangeLanguageComponent/>
+                    </Li>
+                    <Li>
+                        <IconButton
+                            color="primary"
+                            aria-label="change theme"
+                            edge="start"
+                            onClick={setThemeIcon}>
+                            {isLightTheme ? <Brightness7/> : <Brightness4/>}
+                        </IconButton>
+                    </Li>
+                    {Object.values(MenuItems).map((menu) =>
                         <Li key={menu} color={primaryMain}
                             onClick={() => props.handleMenuClick(menu)}>{menu}
                         </Li>
