@@ -19,7 +19,7 @@ const en: ITranslation = {
     contactForm: {
         caption: "Contact form",
         contactEmail: "Contact email",
-        content: "contects",
+        content: "Contects",
         introduceYourself: "Introduce yourself",
         sendBtn: "Send",
         topic: "Topic",
