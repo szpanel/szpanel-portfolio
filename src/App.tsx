@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import './App.css';
 import Header, {MenuItems, ValueOfMenu} from "./Header/Header";
 import Footer from "./Footer";
@@ -8,10 +8,11 @@ import About from "./routes/About/About";
 import {Container, createMuiTheme, CssBaseline, MuiThemeProvider, responsiveFontSizes} from "@material-ui/core";
 import {grey, yellow} from "@material-ui/core/colors";
 import styles from "./styles/_main.module.scss";
+import {Contexts} from "./context/contexts";
 
 
 function App() {
-    const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(true);
+    const {prefersDarkMode, updatePrefersDarkMode} = useContext(Contexts.PrefersDarkModeContext);
 
     const defaultTheme = React.useMemo(
         () =>
@@ -59,7 +60,9 @@ function App() {
     return (
         <MuiThemeProvider theme={theme}>
             <CssBaseline/>
-            <Header handleMenuClick={setSelectedMenu} handleThemeChange={() => setPrefersDarkMode(prev => !prev)}/>
+            <Header handleMenuClick={setSelectedMenu}
+                    handleThemeChange={updatePrefersDarkMode}
+            />
             <Container className={styles.content}>
                 <div ref={aboutRef}><About/></div>
                 <div ref={projectsRef}><Projects/></div>
