@@ -38,6 +38,34 @@ const en: ITranslation = {
             content: "Haven't you forgotten something? :)"
         }
     },
+    projectList: {
+        'photovoltaic': {
+            title: "Information flow system in a photovoltaic company",
+            description: "A web application that facilitates the cooperation of employees of a photovoltaic company." +
+                " The backend was implemented using the Spring framework and the MongoDB" +
+                " non-relational database. It uses the AWS S3 service as well.",
+        },
+        'bsc': {
+            title: "A system for a dentist's office",
+            description: "The project consists of two applications. web, intended for a dentist's office, which " +
+                "improves the ergonomics of its work, and a mobile designed with its patients in mind. " +
+                "The frontend of the application has been implemented in JS using React while mobile application " +
+                "uses the potential of Android using Kotlin. Both applications communicate with each other via Firebase. " +
+                "This project is the result of my engineering work."
+        },
+        'taxi': {
+            title: "Artrans",
+            description: "A simple portfolio for a taxi driver using basic HTML/CSS/JS " +
+                "technologies with the use of jQuery and bootstrap. One of my first projects.",
+        },
+        'noteblock': {
+            title: "NoteBlock",
+            description: "As a programmer in the NoteBlock network, I was involved in the implementation and " +
+                "development of a guild module for Minecraft server using SpigotAPI in Java. I made a lot of " +
+                "simple minecraft plugins that developed my abstract approach to programming, allowing me to " +
+                "have a lot of fun. These plugins often communicated with the Discord.",
+        },
+    },
 }
 
 export default en;

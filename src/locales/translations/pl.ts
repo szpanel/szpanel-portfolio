@@ -38,6 +38,34 @@ const pl: ITranslation = {
             content: "Nie zapomniałeś/aś o czymś? :)"
         }
     },
+    projectList: {
+        'photovoltaic': {
+            title: "System przepływu informacji w firmie fotowoltaicznej",
+            description: "Aplikacja internetowa ułatwiająca współpracę pracowników firmy fotowoltaicznej. " +
+                "Backend został zaimplementowany przy użyciu frameworka Spring oraz nierelacyjnej bazy danych MongoDB. " +
+                "Korzysta ona z usługi AWS S3.",
+        },
+        'bsc': {
+            title: "System dla gabinetu stomatologicznego",
+            description: "Projekt składa się z dwóch aplikacji. Internetowej, przeznaczonej dla gabinetu " +
+                "stomatologicznego, która poprawia ergonomię jego pracy oraz mobilnej stworzonej z myślą o jego pacjentach. " +
+                "Frontend aplikacji został zaimplementowany w JS przy użyciu React. Aplikacja mobilna natomaist" +
+                " wykorzystuje potencjał Androida przy użyciu Kotlina. Obie aplikacje komunikują się ze sobą za" +
+                " pośrednictwem Firebase. Projekt ten jest owocem mojej pracy inżynierskiej."
+        },
+        'taxi': {
+            title: "Artrans",
+            description: "Proste portfolio dla taksówkarza wykorzystujące podstawowe technologie HTML/CSS/JS z wykorzystaniem" +
+                " jQuery i bootstrapa. Jeden z moich pierwszych projektów.",
+        },
+        'noteblock': {
+            title: "NoteBlock",
+            description: "Jako programista w sieci NoteBlock zajmowałem się implementacją i rozwijaniem modułu gildijnego" +
+                " dla serwera Minecraft z wykorzystaniem SpigotAPI w Javie. Zrealizowałem bardzo dużo prostych wtyczek do gry " +
+                "minecraft, które rozwinęły moje abstrakcyjne podejście do programowania umożliwijając mi przy tym świetną zabawę. " +
+                "Niejednokrotnie wtyczki te komunikowały się z komunikatorem Discord.",
+        },
+    },
 }
 
 export default pl;

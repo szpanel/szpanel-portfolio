@@ -1,3 +1,5 @@
+type projectAbbreviationList = 'photovoltaic' | 'bsc' | 'taxi' | 'noteblock';
+
 export default interface ITranslation {
     languages: {
         'pl-PL': string,
@@ -42,4 +44,10 @@ export default interface ITranslation {
             content: string,
         }
     }
+    projectList: {
+        [key in projectAbbreviationList]: {
+            title: string,
+            description: string,
+        }
+    },
 }
