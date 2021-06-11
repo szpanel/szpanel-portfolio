@@ -18,6 +18,7 @@ const ChangeLanguageComponent = () => {
         i18n.changeLanguage(value as string, (err) => {
             if (!err) {
                 setLanguage(value as string);
+                window.location.reload();
             }
         });
     }
