@@ -34,7 +34,7 @@ const Footer = () => {
             <Facebook className={classes.cursorPointer}
                       onClick={() => window.location.href = "https://facebook.com/lukasz.szpanelewski"}/>
             <Email className={classes.cursorPointer}
-                   onClick={() => window.location.href = "https://facebook.com/lukasz.szpanelewski"}/>
+                   onClick={() => window.location.href = "mailto:szpanelek@gmail.com"}/>
         </Box>
         <Box>
             <Typography color="primary" align="center" variant="h6">© 2021 Lukasz Szpanelewski. All rights
