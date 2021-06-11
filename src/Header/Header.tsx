@@ -13,13 +13,14 @@ import {
     Typography,
     useTheme
 } from "@material-ui/core";
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Brightness4, Brightness7, ChevronLeft, ChevronRight, MenuOpen} from "@material-ui/icons";
 import styles from "../styles/_main.module.scss";
 import {createStyles, makeStyles} from "@material-ui/styles";
 import clsx from "clsx";
 import ChangeLanguageComponent from "./ChangeLanguageComponent";
 import i18n from "../locales/i18n";
+import {Contexts} from "../context/contexts";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -120,11 +121,10 @@ export const Header = (props: Props) => {
 
     const primaryMain = theme.palette.primary.main;
 
-    const [isLightTheme, setIsLightTheme] = useState<boolean>(true);
+    const {prefersDarkMode} = useContext(Contexts.PrefersDarkModeContext);
 
     const setThemeIcon = () => {
         props.handleThemeChange();
-        setIsLightTheme(prev => !prev);
     }
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -156,7 +156,7 @@ export const Header = (props: Props) => {
                             aria-label="change theme"
                             edge="end"
                             onClick={setThemeIcon}>
-                            {isLightTheme ? <Brightness7/> : <Brightness4/>}
+                            {prefersDarkMode ? <Brightness7/> : <Brightness4/>}
                         </IconButton>
                         <IconButton
                             color="inherit"
@@ -197,7 +197,7 @@ export const Header = (props: Props) => {
                         edge="start">
                         <Avatar
                             variant="square"
-                            src={isLightTheme ? "/favicon.ico" : "/favicon_blue.ico"}/>
+                            src={prefersDarkMode ? "/favicon.ico" : "/favicon_blue.ico"}/>
                     </IconButton>
                     <Li color={primaryMain} bold onClick={() => props.handleMenuClick(MenuItems.About)}>SZPANEL</Li>
                 </Ul>
@@ -211,7 +211,7 @@ export const Header = (props: Props) => {
                             aria-label="change theme"
                             edge="start"
                             onClick={setThemeIcon}>
-                            {isLightTheme ? <Brightness7/> : <Brightness4/>}
+                            {prefersDarkMode ? <Brightness7/> : <Brightness4/>}
                         </IconButton>
                     </Li>
                     {Object.values(MenuItems).map((menu) =>
