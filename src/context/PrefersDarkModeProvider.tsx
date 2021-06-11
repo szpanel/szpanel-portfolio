@@ -2,14 +2,13 @@ import {useEffect, useState} from "react";
 import {Contexts} from "./contexts";
 
 const PREFERS_DARK_MODE_STORAGE_KEY = 'prefersDarkMode';
-const IS_LATE = 21; // TODO: needs to be updated based on sunset and sunrise
 
 const PrefersDarkModeProvider = ({children}: { children: any }) => {
     const [prefersDarkMode, setPrefersDarkMode] = useState<boolean>(false);
 
     const isLate = () => {
         const hours = new Date().getHours();
-        return hours >= IS_LATE || hours === 0;
+        return hours >= 21 || (hours >= 0 && hours <= 7)
     };
 
     const getModeFromStorage = (): boolean | undefined => {
