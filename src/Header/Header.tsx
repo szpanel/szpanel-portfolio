@@ -151,6 +151,9 @@ export const Header = (props: Props) => {
                         <Typography variant="h6" noWrap className={classes.title}>
                             szpanel
                         </Typography>
+                        <IconButton>
+                            <ChangeLanguageComponent/>
+                        </IconButton>
                         <IconButton
                             color="inherit"
                             aria-label="change theme"
