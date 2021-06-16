@@ -20,7 +20,7 @@ This project is currently in development.
 * Clone the repo
 
   ```sh
-  git clone [todo]
+  git clone https://github.com/szpanel/szpanel-portfolio
   ```
 
 ### Installation
@@ -34,12 +34,12 @@ This project is currently in development.
 * Start server
 
   ```sh
-  npm start
+  npm dev
   ```
 
 To Visit my App:
 
-`localhost:3000`
+`https://lukaszszpanelewski.herokuapp.com`
 
 ## Contact
 
