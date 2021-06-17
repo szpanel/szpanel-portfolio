@@ -133,6 +133,11 @@ export const Header = (props: Props) => {
     const handleDrawerOpen = () => setIsDrawerOpen(true);
     const handleDrawerClose = () => setIsDrawerOpen(false);
 
+    const handleMobileMenuClick = (menuItem: ValueOfMenu) => {
+        handleDrawerClose();
+        props.handleMenuClick(menuItem);
+    }
+
     useEffect(() => {
         const setResponsiveness = () => {
             setIsMobileView(window.innerWidth < 900);
@@ -186,7 +191,7 @@ export const Header = (props: Props) => {
                     <List>
                         {Object.values(MenuItems).map(menu => (
                             <ListItem button key={menu}>
-                                <ListItemText primary={menu.toUpperCase()} onClick={() => props.handleMenuClick(menu)}/>
+                                <ListItemText primary={menu.toUpperCase()} onClick={() => handleMobileMenuClick(menu)}/>
                             </ListItem>
                         ))}
                     </List>
