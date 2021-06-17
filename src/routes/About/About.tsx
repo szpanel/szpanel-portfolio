@@ -45,7 +45,7 @@ const About = () => {
                      alt="SZ page icon"/>
             </Box>
         </Grid>
-        <Grid container alignItems="center" direction="column" style={{marginBottom: "16px"}}>
+        <Grid container alignItems="center" direction="column" className={styles.verticalMargin}>
             <Grid item xs={12} md={8} lg={6}>
                 <Typography component="p" align="justify">
                     {t('aboutMe.description')}

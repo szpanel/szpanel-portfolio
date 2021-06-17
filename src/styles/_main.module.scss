@@ -20,6 +20,11 @@ $footer-height: 60px;
   border-radius: 100%;
 }
 
+.verticalMargin {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
 :export {
   headerHeight: $header-height;
   footerHeight: $footer-height;
