@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useContext, useRef} from 'react';
 import './App.css';
 import Header, {MenuItems, ValueOfMenu} from "./Header/Header";
 import Footer from "./Footer";
@@ -35,14 +35,12 @@ function App() {
 
     const theme = responsiveFontSizes(defaultTheme);
 
-    const [selectedMenu, setSelectedMenu] = useState<ValueOfMenu>(MenuItems.About);
-
     const aboutRef = useRef<HTMLDivElement>(null);
     const projectsRef = useRef<HTMLDivElement>(null);
     const contactRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-        let ref;
+    const setSelectedMenu = (selectedMenu: ValueOfMenu) => {
+        let ref = aboutRef.current;
         switch (selectedMenu) {
             case MenuItems.About:
                 ref = aboutRef.current;
@@ -54,8 +52,8 @@ function App() {
                 ref = contactRef.current;
                 break;
         }
-        ref?.scrollIntoView({behavior: "smooth"});
-    }, [selectedMenu]);
+        ref?.scrollIntoView({behavior: 'smooth'});
+    }
 
     return (
         <MuiThemeProvider theme={theme}>
