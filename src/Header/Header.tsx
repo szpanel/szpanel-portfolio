@@ -13,7 +13,7 @@ import {
     Typography,
     useTheme
 } from "@material-ui/core";
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import {Brightness4, Brightness7, ChevronLeft, ChevronRight, MenuOpen} from "@material-ui/icons";
 import styles from "../styles/_main.module.scss";
 import {createStyles, makeStyles} from "@material-ui/styles";
@@ -128,7 +128,7 @@ export const Header = (props: Props) => {
     }
 
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [mobileView, setIsMobileView] = useState(false);
+    const isMobileView = useContext(Contexts.IsMobileViewContext);
 
     const handleDrawerOpen = () => setIsDrawerOpen(true);
     const handleDrawerClose = () => setIsDrawerOpen(false);
@@ -138,15 +138,7 @@ export const Header = (props: Props) => {
         props.handleMenuClick(menuItem);
     }
 
-    useEffect(() => {
-        const setResponsiveness = () => {
-            setIsMobileView(window.innerWidth < 900);
-        };
-        setResponsiveness();
-        window.addEventListener("resize", setResponsiveness);
-    }, []);
-
-    return (mobileView ? <>
+    return (isMobileView ? <>
                 <AppBar
                     position="sticky"
                     className={clsx(classes.appBar, {[classes.appBarShift]: isDrawerOpen,})}>

@@ -1,4 +1,5 @@
 import React from "react";
+import {isMobileView} from "../common/common";
 
 export namespace Contexts {
     export interface IPrefersDarkMode {
@@ -12,4 +13,6 @@ export namespace Contexts {
         }
     }
     export const PrefersDarkModeContext = React.createContext(defaultValues);
+
+    export const IsMobileViewContext = React.createContext(isMobileView());
 }

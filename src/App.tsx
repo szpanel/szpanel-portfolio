@@ -9,6 +9,7 @@ import {Container, createMuiTheme, CssBaseline, MuiThemeProvider, responsiveFont
 import {grey, yellow} from "@material-ui/core/colors";
 import styles from "./styles/_main.module.scss";
 import {Contexts} from "./context/contexts";
+import IsMobileViewProvider from "./context/IsMobileViewProvider";
 
 
 function App() {
@@ -57,16 +58,18 @@ function App() {
 
     return (
         <MuiThemeProvider theme={theme}>
-            <CssBaseline/>
-            <Header handleMenuClick={setSelectedMenu}
-                    handleThemeChange={updatePrefersDarkMode}
-            />
-            <Container className={styles.content}>
-                <div ref={aboutRef}><About/></div>
-                <div ref={projectsRef}><Projects/></div>
-                <div ref={contactRef}><Contact/></div>
-            </Container>
-            <Footer/>
+            <IsMobileViewProvider>
+                <CssBaseline/>
+                <Header handleMenuClick={setSelectedMenu}
+                        handleThemeChange={updatePrefersDarkMode}
+                />
+                <Container className={styles.content}>
+                    <div ref={aboutRef}><About/></div>
+                    <div ref={projectsRef}><Projects/></div>
+                    <div ref={contactRef}><Contact/></div>
+                </Container>
+                <Footer/>
+            </IsMobileViewProvider>
         </MuiThemeProvider>
     );
 }
