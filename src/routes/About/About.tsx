@@ -33,7 +33,7 @@ const About = () => {
     };
 
     return <Box paddingTop={2}>
-        <Grid container justify="center" alignItems="center" direction="column">
+        <Grid container justifyContent="center" alignItems="center" direction="column">
             <Typography variant="h2" align="center">Łukasz Szpanelewski</Typography>
             <Typography variant="h6" gutterBottom align="center">
                 <Typography component="q">{t('aboutMe.quote')}</Typography>
