@@ -5,7 +5,13 @@ import Footer from "./Footer";
 import Contact from "./routes/Contact";
 import Projects from "./routes/Projects/Projects";
 import About from "./routes/About/About";
-import {Container, createMuiTheme, CssBaseline, MuiThemeProvider, responsiveFontSizes} from "@material-ui/core";
+import {
+    Container,
+    createTheme,
+    CssBaseline,
+    MuiThemeProvider,
+    responsiveFontSizes
+} from "@material-ui/core";
 import {grey, yellow} from "@material-ui/core/colors";
 import styles from "./styles/_main.module.scss";
 import {Contexts} from "./context/contexts";
@@ -17,7 +23,7 @@ function App() {
 
     const defaultTheme = React.useMemo(
         () =>
-            createMuiTheme({
+            createTheme({
                 palette: {
                     type: prefersDarkMode ? 'dark' : 'light',
                     primary: {
