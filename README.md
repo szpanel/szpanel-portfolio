@@ -22,6 +22,12 @@ This project is currently in development.
   ```sh
   git clone https://github.com/szpanel/szpanel-portfolio
   ```
+  
+
+### Filling data
+* Fill projectList.ts before running the app
+
+  Open projectList.ts file and fill projects according to the provided interface
 
 ### Installation
 
@@ -43,4 +49,4 @@ To Visit my App:
 
 ## Contact
 
-[szpanelek@gmail.com](szpanelek@gmail.com)
+[szpanelek@gmail.com](mailto:szpanelek@gmail.com)
