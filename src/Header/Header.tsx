@@ -62,11 +62,13 @@ export type ValueOfMenu = Menu[keyof Menu];
 export interface Menu {
     About: string,
     Projects: string,
+    Employment: string,
     Contact: string,
 }
 
 export const MenuItems: Menu = {
     About: i18n.t('header.aboutMe'),
+    Employment: i18n.t('header.employment'),
     Projects: i18n.t('header.projects'),
     Contact: i18n.t('header.contact'),
 }

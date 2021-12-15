@@ -39,7 +39,9 @@ const About = () => {
                 <Typography component="q">{t('aboutMe.quote')}</Typography>
             </Typography>
             <Box className={styles.circle} style={{backgroundColor: theme.palette.secondary.main}}>
-                <img srcSet={theme.palette.type === "dark" ? '/favicon.ico' : '/favicon_blue.ico'}
+                <img
+                    className='animate__animated animate__flip'
+                    srcSet={theme.palette.type === "dark" ? '/favicon.ico' : '/favicon_blue.ico'}
                      width="100%"
                      height="100%"
                      alt="SZ page icon"/>

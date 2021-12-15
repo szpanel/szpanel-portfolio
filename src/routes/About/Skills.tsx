@@ -1,7 +1,8 @@
 import {Box, Grid, LinearProgress, Theme, Typography} from "@material-ui/core";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {createStyles, withStyles} from "@material-ui/styles";
 import {useTranslation} from "react-i18next";
+import {addScrolledIntoViewEventListener} from "../../common/common";
 
 const BorderLinearProgress = withStyles((theme: Theme) =>
     createStyles({
@@ -98,6 +99,8 @@ const Skills = () => {
         },
     });
 
+    const skillsRef = useRef();
+
 
     const loadSkills = () => {
         const maxVal = Math.max.apply(Math, Object.values(skills).map((o) => o.max));
@@ -125,17 +128,18 @@ const Skills = () => {
     const {t} = useTranslation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 150) {
-                loadSkills();
-                window.removeEventListener("scroll", handleScroll);
-            }
-        }
-        window.addEventListener("scroll", handleScroll);
+        const unsubscribe = addScrolledIntoViewEventListener(skillsRef, () => {
+            loadSkills();
+            unsubscribe();
+        });
+        return unsubscribe;
         /* eslint-disable */
     }, []);
 
-    return <Box marginTop={2}>
+    return <Box
+        {...{ref: skillsRef}}
+        marginTop={2}
+    >
         <Typography variant="h3" gutterBottom>{t('skills')}</Typography>
         <Grid container spacing={2}>
             {Object.entries(skills)

@@ -5,7 +5,7 @@ const pl: ITranslation = {
         'pl-PL': "Polski",
         'en': "Angielski"
     },
-    header: {aboutMe: "O mnie", contact: "Kontakt", projects: "Projekty"},
+    header: {aboutMe: "O mnie", contact: "Kontakt", projects: "Projekty", employment: "Zatrudnienie"},
     aboutMe: {
         caption: "Łukasz Szpanelewski",
         description: "Dzień dobry 👋\n" +
@@ -15,6 +15,10 @@ const pl: ITranslation = {
         quote: "The best way to predict the future is to create it."
     },
     skills: "Umiejętności",
+    employment: {
+        caption: "Historia zatrudnienia",
+        employedUntilNow: "Teraz",
+    },
     projects: {allProjects: "Wszystkie", caption: "Projekty"},
     contactForm: {
         caption: "Formularz kontaktowy",

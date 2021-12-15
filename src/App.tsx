@@ -3,8 +3,10 @@ import './App.css';
 import Header, {MenuItems, ValueOfMenu} from "./Header/Header";
 import Footer from "./Footer";
 import Contact from "./routes/Contact";
+import Employment from "./routes/Employment/Employment";
 import Projects from "./routes/Projects/Projects";
 import About from "./routes/About/About";
+import 'animate.css';
 import {
     Container,
     createTheme,
@@ -44,6 +46,7 @@ function App() {
 
     const aboutRef = useRef<HTMLDivElement>(null);
     const projectsRef = useRef<HTMLDivElement>(null);
+    const employmentRef = useRef<HTMLDivElement>(null);
     const contactRef = useRef<HTMLDivElement>(null);
 
     const setSelectedMenu = (selectedMenu: ValueOfMenu) => {
@@ -51,6 +54,9 @@ function App() {
         switch (selectedMenu) {
             case MenuItems.About:
                 ref = aboutRef.current;
+                break;
+            case MenuItems.Employment:
+                ref = employmentRef.current
                 break;
             case MenuItems.Projects:
                 ref = projectsRef.current;
@@ -71,6 +77,7 @@ function App() {
                 />
                 <Container className={styles.content}>
                     <div ref={aboutRef}><About/></div>
+                    <div ref={employmentRef}><Employment/></div>
                     <div ref={projectsRef}><Projects/></div>
                     <div ref={contactRef}><Contact/></div>
                 </Container>
