@@ -1,7 +1,8 @@
 import {Box, Grid, LinearProgress, Theme, Typography} from "@material-ui/core";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {createStyles, withStyles} from "@material-ui/styles";
 import {useTranslation} from "react-i18next";
+import {addScrolledIntoViewEventListener} from "../../common/common";
 
 const BorderLinearProgress = withStyles((theme: Theme) =>
     createStyles({
@@ -18,21 +19,18 @@ const BorderLinearProgress = withStyles((theme: Theme) =>
 enum Skill {
     FIREBASE = "Firebase",
     JAVA = "Java",
-    SPRING = "Spring",
     GIT = "Git",
     KOTLIN = "Kotlin",
     JAVASCRIPT = "JavaScript",
     ANDROID = "Android",
     REACT = "React",
+    REACT_NATIVE = "React Native",
     NODE = "Node.JS",
-    HTMLCSS = "HTML/CSS/JS",
-    LINUX = "Linux",
-    CPP = "C++",
-    PHP = "Php",
     JIRA = "Jira",
     AWS = "AWS S3",
     MONGO = "Mongo",
     MYSQL = "MySQL",
+    GRAPHQL = "GraphQL",
 }
 
 interface SkillMeta {
@@ -49,15 +47,11 @@ const Skills = () => {
         },
         [Skill.JAVA]: {
             current: 0,
-            max: 80
-        },
-        [Skill.SPRING]: {
-            current: 0,
-            max: 30
+            max: 65
         },
         [Skill.GIT]: {
             current: 0,
-            max: 50
+            max: 65
         },
         [Skill.KOTLIN]: {
             current: 0,
@@ -65,39 +59,27 @@ const Skills = () => {
         },
         [Skill.JAVASCRIPT]: {
             current: 0,
-            max: 75
+            max: 95
         },
         [Skill.ANDROID]: {
             current: 0,
-            max: 35
+            max: 40
         },
         [Skill.REACT]: {
             current: 0,
-            max: 45
+            max: 70
+        },
+        [Skill.REACT_NATIVE]: {
+            current: 0,
+            max: 65
         },
         [Skill.NODE]: {
             current: 0,
-            max: 35
-        },
-        [Skill.HTMLCSS]: {
-            current: 0,
-            max: 60
-        },
-        [Skill.LINUX]: {
-            current: 0,
-            max: 45
-        },
-        [Skill.CPP]: {
-            current: 0,
-            max: 10
-        },
-        [Skill.PHP]: {
-            current: 0,
-            max: 15
+            max: 55
         },
         [Skill.JIRA]: {
             current: 0,
-            max: 15
+            max: 50
         },
         [Skill.AWS]: {
             current: 0,
@@ -109,9 +91,15 @@ const Skills = () => {
         },
         [Skill.MYSQL]: {
             current: 0,
-            max: 35
+            max: 45
+        },
+        [Skill.GRAPHQL]: {
+            current: 0,
+            max: 40
         },
     });
+
+    const skillsRef = useRef();
 
 
     const loadSkills = () => {
@@ -140,17 +128,18 @@ const Skills = () => {
     const {t} = useTranslation();
 
     useEffect(() => {
-        const handleScroll = () => {
-            if (window.scrollY > 150) {
-                loadSkills();
-                window.removeEventListener("scroll", handleScroll);
-            }
-        }
-        window.addEventListener("scroll", handleScroll);
+        const unsubscribe = addScrolledIntoViewEventListener(skillsRef, () => {
+            loadSkills();
+            unsubscribe();
+        });
+        return unsubscribe;
         /* eslint-disable */
     }, []);
 
-    return <Box marginTop={2}>
+    return <Box
+        {...{ref: skillsRef}}
+        marginTop={2}
+    >
         <Typography variant="h3" gutterBottom>{t('skills')}</Typography>
         <Grid container spacing={2}>
             {Object.entries(skills)

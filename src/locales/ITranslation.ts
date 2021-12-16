@@ -7,6 +7,7 @@ export default interface ITranslation {
     }
     header: {
         aboutMe: string,
+        employment: string,
         projects: string,
         contact: string,
     }
@@ -18,6 +19,10 @@ export default interface ITranslation {
         latestUpdate: string,
     }
     skills: string,
+    employment: {
+        caption: string,
+        employedUntilNow: string,
+    },
     projects: {
         caption: string,
         allProjects: string,

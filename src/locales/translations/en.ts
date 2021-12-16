@@ -5,7 +5,7 @@ const en: ITranslation = {
         'pl-PL': "Polish",
         'en': "English"
     },
-    header: {aboutMe: "About Me", contact: "Contact", projects: "Projects"},
+    header: {aboutMe: "About Me", contact: "Contact", projects: "Projects", employment: "Employment"},
     aboutMe: {
         caption: "Łukasz Szpanelewski",
         description: "Hello 👋 I started my real adventure with programming at the end of 2017 when I started my studies. The first programming languages I learned were: C ++, HTML / CSS / JS. During my studies, I chose the Mobile Systems and Applications specialization, where I started to develop towards Java. I liked this language so much that until recently, i.e. until Java 15, I had to know about all the implemented novelties. Along the way, I got to know many technologies and frameworks that interest me. I have always liked the simplicity of writing JS code, and at the same time frustrated me that it is a dynamically typed language. My approach to this language changed when I got to know Typescript technology. This environment makes me a great JS or Node.js programmer and I am currently developing in this direction.",
@@ -14,6 +14,10 @@ const en: ITranslation = {
         quote: "The best way to predict the future is to create it."
     },
     skills: "Skills",
+    employment: {
+        caption: "Employment history",
+        employedUntilNow: "Present",
+    },
     projects: {allProjects: "All", caption: "Projects"},
     contactForm: {
         caption: "Contact form",
