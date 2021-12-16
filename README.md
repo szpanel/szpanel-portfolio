@@ -44,7 +44,7 @@ This project is currently in development.
 * Start server
 
   ```sh
-  npm dev
+  npm run dev
   ```
 
 To Visit my App:
