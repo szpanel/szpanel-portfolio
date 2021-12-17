@@ -1,6 +1,6 @@
 import {Box, Button, CircularProgress, Grid, makeStyles, Typography, useTheme} from "@material-ui/core";
 import styles from "../../styles/_main.module.scss";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useRef, useState} from "react";
 import Skills from "./Skills";
 import {API_URL} from "../../constans";
 import {useTranslation} from "react-i18next";
@@ -47,13 +47,7 @@ const About = () => {
 
     };
 
-    useEffect(() => {
-        if (shouldAnimate) {
-            animateLogoImg();
-        }
-    }, [shouldAnimate]);
-
-    const animateLogoImg = () => {
+    const animateLogoImg = useCallback(() => {
         const classListTokens = ['animate__animated', 'animate__flip'];
         if (!logoImgRef.current) return;
         logoImgRef.current.classList.remove(...classListTokens);
@@ -63,7 +57,13 @@ const About = () => {
         setTimeout(() => {
             setShouldAnimate(false);
         }, ANIMATION_TIME_SECONDS * 1000);
-    }
+    }, [setShouldAnimate, ANIMATION_TIME_SECONDS]);
+
+    useEffect(() => {
+        if (shouldAnimate) {
+            animateLogoImg();
+        }
+    }, [shouldAnimate, animateLogoImg]);
 
     return <Box paddingTop={2}>
         <Grid container justifyContent="center" alignItems="center" direction="column">
