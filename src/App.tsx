@@ -1,6 +1,6 @@
 import React, {useContext, useRef} from 'react';
 import './App.css';
-import Header, {MenuItems, ValueOfMenu} from "./Header/Header";
+import Header, {ValueOfMenu} from "./Header/Header";
 import Footer from "./Footer";
 import Contact from "./routes/Contact";
 import Employment from "./routes/Employment/Employment";
@@ -18,10 +18,13 @@ import {grey, yellow} from "@material-ui/core/colors";
 import styles from "./styles/_main.module.scss";
 import {Contexts} from "./context/contexts";
 import IsMobileViewProvider from "./context/IsMobileViewProvider";
+import {useMenuItems} from "./Header/useMenuItems";
 
 
 function App() {
     const {prefersDarkMode, updatePrefersDarkMode} = useContext(Contexts.PrefersDarkModeContext);
+
+    const menuItems = useMenuItems();
 
     const defaultTheme = React.useMemo(
         () =>
@@ -52,16 +55,16 @@ function App() {
     const setSelectedMenu = (selectedMenu: ValueOfMenu) => {
         let ref = aboutRef.current;
         switch (selectedMenu) {
-            case MenuItems.About:
+            case menuItems.About:
                 ref = aboutRef.current;
                 break;
-            case MenuItems.Employment:
+            case menuItems.Employment:
                 ref = employmentRef.current
                 break;
-            case MenuItems.Projects:
+            case menuItems.Projects:
                 ref = projectsRef.current;
                 break;
-            case MenuItems.Contact:
+            case menuItems.Contact:
                 ref = contactRef.current;
                 break;
         }

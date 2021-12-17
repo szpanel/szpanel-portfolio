@@ -19,8 +19,8 @@ import styles from "../styles/_main.module.scss";
 import {createStyles, makeStyles} from "@material-ui/styles";
 import clsx from "clsx";
 import ChangeLanguageComponent from "./ChangeLanguageComponent";
-import i18n from "../locales/i18n";
 import {Contexts} from "../context/contexts";
+import {useMenuItems} from "./useMenuItems";
 
 const Ul = styled.ul`
   padding: 20px;
@@ -64,13 +64,6 @@ export interface Menu {
     Projects: string,
     Employment: string,
     Contact: string,
-}
-
-export const MenuItems: Menu = {
-    About: i18n.t('header.aboutMe'),
-    Employment: i18n.t('header.employment'),
-    Projects: i18n.t('header.projects'),
-    Contact: i18n.t('header.contact'),
 }
 
 const drawerWidth = 200;
@@ -124,6 +117,8 @@ export const Header = (props: Props) => {
     const primaryMain = theme.palette.primary.main;
 
     const {prefersDarkMode} = useContext(Contexts.PrefersDarkModeContext);
+
+    const menuItems = useMenuItems();
 
     const setThemeIcon = () => {
         props.handleThemeChange();
@@ -183,7 +178,7 @@ export const Header = (props: Props) => {
                     </div>
                     <Divider/>
                     <List>
-                        {Object.values(MenuItems).map(menu => (
+                        {Object.values(menuItems).map(menu => (
                             <ListItem button key={menu}>
                                 <ListItemText primary={menu.toUpperCase()} onClick={() => handleMobileMenuClick(menu)}/>
                             </ListItem>
@@ -201,7 +196,7 @@ export const Header = (props: Props) => {
                             variant="square"
                             src={prefersDarkMode ? "/favicon.ico" : "/favicon_blue.ico"}/>
                     </IconButton>
-                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(MenuItems.About)}>SZPANEL</Li>
+                    <Li color={primaryMain} bold onClick={() => props.handleMenuClick(menuItems.About)}>SZPANEL</Li>
                 </Ul>
                 <Ul>
                     <Li>
@@ -216,7 +211,7 @@ export const Header = (props: Props) => {
                             {prefersDarkMode ? <Brightness7/> : <Brightness4/>}
                         </IconButton>
                     </Li>
-                    {Object.values(MenuItems).map((menu) =>
+                    {Object.values(menuItems).map((menu) =>
                         <Li key={menu} color={primaryMain}
                             onClick={() => props.handleMenuClick(menu)}>{menu}
                         </Li>

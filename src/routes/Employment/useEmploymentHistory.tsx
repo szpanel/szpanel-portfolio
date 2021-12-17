@@ -1,3 +1,5 @@
+import {useTranslation} from "react-i18next";
+
 export interface IEmploymentHistory {
     companyName: string | null;
     projectName: string;
@@ -8,6 +10,10 @@ export interface IEmploymentHistory {
     source: string;
 }
 
-export const employmentHistory: IEmploymentHistory[] = [
+export const useEmploymentHistory = (): IEmploymentHistory[] => {
+    const {t} = useTranslation();
 
-];
+    return [
+
+    ];
+}
