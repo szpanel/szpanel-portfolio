@@ -1,15 +1,16 @@
 import {Box, Chip, Grid, Typography} from "@material-ui/core";
 import React, {useState} from "react";
 import {Done} from "@material-ui/icons";
-import {projects} from "./projectsList";
 import {Technology} from "./ITechnology";
 import Project, {IProject} from "./Project";
 import {useTranslation} from "react-i18next";
+import {useProjects} from "./useProjects";
 
 const Projects = () => {
 
     const [projectsFilter, setProjectsFilter] = useState<Technology>(Technology.ALL);
     const {t} = useTranslation();
+    const projects = useProjects();
 
     const handleClick = (filter: Technology) => {
         if (filter !== projectsFilter) {

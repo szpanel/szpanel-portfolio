@@ -27,11 +27,11 @@ This project is currently in development.
 ### Filling data
 * Fill Project List before running/**deploying** the app
   
-  Open projectList.ts file and fill projects according to the provided interface
+  Open useProjects.tsx file and fill project list according to the provided interface
 
 * Fill Employment History before running/**deploying** the app
   
-  Open employmentHistory.ts file and fill the history according to the provided interface
+  Open useEmploymentHistory.tsx file and fill the history list according to the provided interface
 
 ### Installation
 

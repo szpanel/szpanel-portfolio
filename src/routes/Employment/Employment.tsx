@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useTranslation} from "react-i18next";
-import {employmentHistory, IEmploymentHistory} from "./employmentHistory";
+import {IEmploymentHistory, useEmploymentHistory} from "./useEmploymentHistory";
 import {getYearMonthString} from "../../utils/date";
 import {addScrolledIntoViewEventListener} from "../../common/common";
 import {Avatar, Box, Divider, Link, makeStyles, Typography} from "@material-ui/core";
@@ -20,6 +20,7 @@ const YEAR_MONTH_SEPARATOR = '.'
 const Employment = () => {
 
     const {t} = useTranslation();
+    const employmentHistory = useEmploymentHistory();
 
     const classes = useStyles();
 
