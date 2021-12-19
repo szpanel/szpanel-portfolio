@@ -4,7 +4,8 @@ import {
     FormControl,
     FormHelperText,
     InputAdornment,
-    InputLabel, Link,
+    InputLabel,
+    Link,
     MenuItem,
     Select,
     TextField,
@@ -18,7 +19,6 @@ import {load} from "recaptcha-v3";
 import {API_URL, SITE_KEY} from "../constans";
 import Alerts, {useAlerts} from "../Alerts";
 import {useTranslation} from "react-i18next";
-import i18n from "../locales/i18n";
 
 interface IContactForm {
     recipient: string,
@@ -32,28 +32,22 @@ interface ContactRecaptchaResponse {
     message: string
 }
 
-type topics = {
-    [key in 'NONE' | 'ORDER' | 'QUESTION' | 'OTHER']: string;
-};
-
-const TOPICS: topics = i18n.t('contactForm.topics', {returnObjects: true});
-
 /** FORMIK **/
 
 const initialValues = {
     recipient: "",
-    topic: TOPICS.NONE,
+    topic: 'NONE',
     email: "",
     content: ""
 }
 
 const validationSchema = Yup.object().shape({
     recipient: Yup.string()
-        .required(i18n.t('contactForm.validation.introduceYourself')),
-    email: Yup.string().email(i18n.t('contactForm.validation.invalidEmail'))
-        .required(i18n.t('contactForm.validation.emptyEmail')),
-    topic: Yup.mixed().not([TOPICS.NONE], i18n.t('contactForm.validation.topic')),
-    content: Yup.string().required(i18n.t('contactForm.validation.content'))
+        .required('contactForm.validation.introduceYourself'),
+    email: Yup.string().email('contactForm.validation.invalidEmail')
+        .required('contactForm.validation.emptyEmail'),
+    topic: Yup.mixed().not(['NONE'], 'contactForm.validation.topic'),
+    content: Yup.string().required('contactForm.validation.content')
 });
 
 /** COMPONENT **/
@@ -108,7 +102,7 @@ const Contact = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                                 error={touched.recipient && Boolean(errors.recipient)}
-                                helperText={touched.recipient && errors.recipient}
+                                helperText={touched.recipient && t(errors.recipient as string)}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -119,26 +113,27 @@ const Contact = () => {
                                 fullWidth/>
                         </Box>
                         <Box p={1} width={1}>
-                            <FormControl variant="filled" fullWidth error={errors.topic != null}>
+                            <FormControl variant="filled" fullWidth error={touched.topic && !!errors.topic}>
                                 <InputLabel id="topicLabel">{t('contactForm.topic')}</InputLabel>
                                 <Field
                                     component={Select}
                                     labelId="topicLabel"
                                     id="topic"
                                     name="topic"
-                                    value={values.topic}
+                                    value={t(values.topic)}
                                     onChange={handleChange("topic")}
                                     onBlur={handleBlur("topic")}
                                     error={touched.topic && Boolean(errors.topic)}>
-                                    <MenuItem key={TOPICS.NONE} value={TOPICS.NONE}>
-                                        <em>{TOPICS.NONE}</em>
-                                    </MenuItem>
-                                    {Object.entries(TOPICS).map(([key, value]) =>
-                                        value !== TOPICS.NONE &&
-                                        <MenuItem key={key} value={value}>{value}</MenuItem>
-                                    )}
+                                    {Object.entries(t('contactForm.topics', {returnObjects: true}))
+                                        .map(([key, value]) =>
+                                            <MenuItem
+                                                key={key}
+                                                value={key as string}>
+                                                {value as string}
+                                            </MenuItem>
+                                        )}
                                 </Field>
-                                <FormHelperText>{errors.topic && errors.topic}</FormHelperText>
+                                <FormHelperText>{touched.topic && t(errors.topic as string)}</FormHelperText>
                             </FormControl>
                         </Box>
                         <Box p={1} width={1}>
@@ -152,7 +147,7 @@ const Contact = () => {
                                 value={values.email}
                                 onChange={handleChange}
                                 error={touched.email && Boolean(errors.email)}
-                                helperText={touched.email && errors.email}
+                                helperText={touched.email && t(errors.email as string)}
                                 InputProps={{
                                     startAdornment: (
                                         <InputAdornment position="start">
@@ -173,7 +168,7 @@ const Contact = () => {
                                 value={values.content}
                                 onChange={handleChange}
                                 error={touched.content && Boolean(errors.content)}
-                                helperText={touched.content && errors.content}
+                                helperText={touched.content && t(errors.content as string)}
                                 multiline
                                 fullWidth
                                 rows={5}/>
