@@ -28,11 +28,11 @@ const en: ITranslation = {
         },
             {
                 companyName: "Comarch",
-                projectName: "Comarch HealthCare",
+                projectName: "Comarch S.A.",
                 position: "Mobile Developer",
                 from: {year: 2022, month: 9, day: 2},
                 to: null,
-                iconPath: "/images/employment/comarch-healthcare.jpeg",
+                iconPath: "/images/employment/comarch.jpg",
                 source: "https://www.comarch.com/healthcare/products/comarch-homehealth/"
             },
             {
