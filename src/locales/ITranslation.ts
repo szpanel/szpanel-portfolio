@@ -55,4 +55,8 @@ export default interface ITranslation {
             description: string,
         }
     },
+    footer: {
+        version: string,
+        allRightsReserved: string,
+    },
 }

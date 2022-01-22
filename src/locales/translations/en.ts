@@ -69,6 +69,10 @@ const en: ITranslation = {
                 "have a lot of fun. These plugins often communicated with the Discord.",
         },
     },
+    footer: {
+        version: "Versoin",
+        allRightsReserved: "All rights reserved",
+    },
 }
 
 export default en;

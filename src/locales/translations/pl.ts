@@ -70,6 +70,10 @@ const pl: ITranslation = {
                 "Niejednokrotnie wtyczki te komunikowały się z komunikatorem Discord.",
         },
     },
+    footer: {
+        version: "Wersja",
+        allRightsReserved: "Wszelkie prawa zastrzeżone",
+    },
 }
 
 export default pl;
