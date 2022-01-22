@@ -3,6 +3,8 @@ import {Email, Facebook, GitHub} from "@material-ui/icons";
 import {createStyles, makeStyles} from "@material-ui/styles";
 import {useContext} from "react";
 import {Contexts} from "./context/contexts";
+import packageJson from "../package.json";
+import {useTranslation} from "react-i18next";
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -16,6 +18,7 @@ const Footer = () => {
     const theme = useTheme();
     const isMobileView = useContext(Contexts.IsMobileViewContext);
     const classes = useStyles();
+    const {t} = useTranslation();
 
     const openUrlInNewTab = (url: string) => window.open(url, '_blank', 'noopener, noreferrer')
 
@@ -39,8 +42,16 @@ const Footer = () => {
                    onClick={() => openUrlInNewTab("mailto:szpanelek@gmail.com")}/>
         </Box>
         <Box>
-            <Typography color="primary" align="center" variant="h6">© 2021 Lukasz Szpanelewski. All rights
-                reserved.
+            <Typography color='primary' align='center' variant='subtitle1'>
+                {`${t('footer.version')}: ${packageJson.version}`}
+            </Typography>
+        </Box>
+        <Box>
+            <Typography color="primary" align="center" variant='subtitle2'>
+                © 2021 Łukasz Szpanelewski.
+            </Typography>
+            <Typography color="primary" align="center" variant="subtitle2">
+                {t('footer.allRightsReserved')}.
             </Typography>
         </Box>
     </Box>
