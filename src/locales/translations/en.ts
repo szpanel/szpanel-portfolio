@@ -70,7 +70,7 @@ const en: ITranslation = {
         },
     },
     footer: {
-        version: "Versoin",
+        version: "Version",
         allRightsReserved: "All rights reserved",
     },
 }
