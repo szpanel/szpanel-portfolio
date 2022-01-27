@@ -15,7 +15,6 @@ const AlertsContainer = styled.div`
   display: flex;
   flex-direction: column-reverse;
   gap: 16px;
-  height: 100%;
   margin: 16px;
 `
 
