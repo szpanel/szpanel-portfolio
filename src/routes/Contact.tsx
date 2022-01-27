@@ -5,7 +5,6 @@ import {
     FormHelperText,
     InputAdornment,
     InputLabel,
-    Link,
     MenuItem,
     Select,
     TextField,
@@ -16,7 +15,7 @@ import {Field, Form, Formik, FormikHelpers} from "formik";
 import React from "react";
 import * as Yup from "yup";
 import {load} from "recaptcha-v3";
-import {API_URL, SITE_KEY} from "../constans";
+import {API_URL, GOOGLE_RECAPTCHA_SITE_KEY} from "../constans";
 import Alerts, {useAlerts} from "../Alerts";
 import {useTranslation} from "react-i18next";
 
@@ -25,11 +24,12 @@ interface IContactForm {
     topic: string,
     email: string,
     content: string,
+    test: boolean,
 }
 
-interface ContactRecaptchaResponse {
+interface ContactResponse {
     success: boolean,
-    message: string
+    error: any
 }
 
 /** FORMIK **/
@@ -38,7 +38,8 @@ const initialValues = {
     recipient: "",
     topic: 'NONE',
     email: "",
-    content: ""
+    content: "",
+    test: false,
 }
 
 const validationSchema = Yup.object().shape({
@@ -57,18 +58,40 @@ const Contact = () => {
     const [alertList, addAlert, removeAlert] = useAlerts();
     const {t} = useTranslation();
 
-    const onSubmit = async (values: IContactForm, {setSubmitting}: FormikHelpers<any>) => {
+    const onSubmit = async (
+        values: IContactForm,
+        {setSubmitting, resetForm}: FormikHelpers<any>
+    ) => {
         setSubmitting(true);
-        const response = await (await load(SITE_KEY)).execute("submit");
-        fetch(`${API_URL}/contact`, {
-            method: "POST",
-            headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({token: response, ...values})
-        }).then(result => result.json())
-            .then(result => result as ContactRecaptchaResponse)
-            .then(response =>
-                addAlert({type: response.success ? "success" : "error", message: response.message})
-            );
+        try {
+            const recaptchaResponse = await (await load(GOOGLE_RECAPTCHA_SITE_KEY)).execute("submit");
+            const response = await fetch(`${API_URL}/contact`, {
+                method: "POST",
+                headers: {"Content-Type": "application/json"},
+                body: JSON.stringify({token: recaptchaResponse, ...values})
+            });
+            const {success} = await (response.json()) as ContactResponse;
+            const alertType = success ? (values.test ? 'info' : 'success') : 'error';
+            const alertMessage = success ?
+                (
+                    values.test ? t('contactForm.testResponseMessage')
+                        : t('contactForm.emailSuccessfullySent')
+                )
+                : t('contactForm.errorSendingEmail');
+            addAlert({
+                type: alertType,
+                message: alertMessage
+            });
+            resetForm();
+            setSubmitting(false);
+        } catch (error) {
+            addAlert({
+                type: 'error',
+                message: t('contactForm.errorSendingEmail'),
+            });
+            console.log(`'Error occurred while sending email: ${error}`);
+            setSubmitting(false);
+        }
     }
 
     return (
@@ -174,16 +197,28 @@ const Contact = () => {
                                 rows={5}/>
                         </Box>
                         <Box p={1} width={1}>
-                            <em>{t('contactForm.formTemporaryDisabled')}&nbsp;
-                                <Link color="primary" href="mailto:szpanelek@gmail.com">szpanelek@gmail.com</Link>
-                            </em>
+                            <label>
+                                <Field
+                                    style={{marginRight: 8}}
+                                    type='checkbox'
+                                    name='test'
+                                />
+                                {t('contactForm.testingInfo')}
+                            </label>
+                        </Box>
+                        <Box p={1} width={1}>
                             <Button
                                 type="submit"
-                                disabled={true}
+                                disabled={isSubmitting}
                                 variant="outlined"
                                 color="primary"
                                 size="large"
-                                fullWidth>{t('contactForm.sendBtn')}</Button>
+                                fullWidth
+                            >
+                                {
+                                    !isSubmitting ? t('contactForm.sendBtn') : t('contactForm.sendingBtn')
+                                }
+                            </Button>
                         </Box>
                     </Form>
                 )}
