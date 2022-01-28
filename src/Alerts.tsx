@@ -1,6 +1,7 @@
 import {useState} from "react";
 import styled from "styled-components";
 import Alert, {Color} from '@material-ui/lab/Alert';
+import {makeStyles} from "@material-ui/core";
 
 interface CustomAlert {
     type: Color,
@@ -23,6 +24,12 @@ interface AlertsProps {
     removeAlert: (alert: CustomAlert) => void,
 }
 
+const useStyles = makeStyles({
+    alert: {
+        fontSize: '1.2rem',
+    }
+});
+
 export const useAlerts = (): [CustomAlert[], (alert: CustomAlert, removeAfterSeconds?: number) => void, (alert: CustomAlert) => void] => {
     const [alertList, setAlertList] = useState<CustomAlert[]>([]);
 
@@ -38,8 +45,18 @@ export const useAlerts = (): [CustomAlert[], (alert: CustomAlert, removeAfterSec
 };
 
 const Alerts = (props: AlertsProps) => {
+
+    const classes = useStyles();
+
     return <AlertsContainer>{props.alerts.map((alert, idx) =>
-        <Alert key={idx} severity={alert.type} onClose={() => props.removeAlert(alert)}>{alert.message}</Alert>)}
+        <Alert key={idx}
+               className={classes.alert}
+               severity={alert.type}
+               onClose={() => props.removeAlert(alert)}
+        >
+            {alert.message}
+        </Alert>
+    )}
     </AlertsContainer>
 };
 
