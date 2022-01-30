@@ -65,7 +65,7 @@ const Contact = () => {
         setSubmitting(true);
         try {
             const recaptchaResponse = await (await load(GOOGLE_RECAPTCHA_SITE_KEY)).execute("submit");
-            const response = await fetch(`${API_URL}/contact`, {
+            const response = await fetch(`${API_URL}/contact/`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
                 body: JSON.stringify({token: recaptchaResponse, ...values})
