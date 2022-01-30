@@ -1,4 +1,4 @@
-# 1.6.0
+# 2.0.0
 
 * Implement contact functionality
 * Add possibility to "checking" the operation of sending messages (testing)
