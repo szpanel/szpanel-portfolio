@@ -33,8 +33,13 @@ export default interface ITranslation {
         topic: string,
         contactEmail: string,
         content: string,
+        testingInfo: string;
+        testResponseMessage: string;
+        emailSuccessfullySent: string,
+        errorSendingEmail: string,
         formTemporaryDisabled?: string,
         sendBtn: string,
+        sendingBtn: string,
         topics: {
             NONE: string,
             ORDER: string,

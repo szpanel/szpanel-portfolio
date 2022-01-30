@@ -1,3 +1,8 @@
+# 2.0.0
+
+* Implement contact functionality
+* Add possibility to "checking" the operation of sending messages (testing)
+
 # 1.5.1
 
 * Fix footer version english translation
