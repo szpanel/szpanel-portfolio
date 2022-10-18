@@ -18,6 +18,42 @@ const pl: ITranslation = {
     employment: {
         caption: "Historia zatrudnienia",
         employedUntilNow: "Teraz",
+        history: [{
+            companyName: "softnel",
+            projectName: "softnel",
+            position: "Założyciel",
+            from: {year: 2021, month: 12, day: 3},
+            to: null,
+            iconPath: "/images/employment/founder.png",
+            source: "#",
+        },
+            {
+                companyName: "Comarch",
+                projectName: "Comarch HealthCare",
+                position: "Programista aplikacji mobilnych",
+                from: {year: 2022, month: 9, day: 2},
+                to: null,
+                iconPath: "/images/employment/comarch-healthcare.jpeg",
+                source: "https://www.comarch.com/healthcare/products/comarch-homehealth/"
+            },
+            {
+                companyName: null,
+                projectName: "Freelancer",
+                position: "Full-Stack Developer",
+                from: {year: 2019, month: 1, day: 1},
+                to: {year: 2021, month: 5, day: 1},
+                iconPath: "/images/employment/freelancer.png",
+                source: "#"
+            },
+            {
+                companyName: "GreenSource Daniel Kaczmarek",
+                projectName: "Paliwomierz",
+                position: "Full-Stack Developer",
+                from: {year: 2021, month: 5, day: 1},
+                to: null,
+                iconPath: "/images/employment/paliwomierz.png",
+                source: "https://paliwomierz.pl/"
+            }]
     },
     projects: {allProjects: "Wszystkie", caption: "Projekty"},
     contactForm: {
