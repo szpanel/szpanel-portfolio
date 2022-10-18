@@ -1,5 +1,21 @@
 type projectAbbreviationList = 'photovoltaic' | 'bsc' | 'taxi' | 'noteblock';
 
+type EmploymentHistoryDate = {
+    year: number;
+    month: number;
+    day: number;
+}
+
+export type EmploymentHistory = {
+    companyName: string | null;
+    projectName: string;
+    position: string;
+    from: EmploymentHistoryDate;
+    to: EmploymentHistoryDate | null;
+    iconPath: string;
+    source: string;
+}
+
 export default interface ITranslation {
     languages: {
         'pl-PL': string,
@@ -22,6 +38,7 @@ export default interface ITranslation {
     employment: {
         caption: string,
         employedUntilNow: string,
+        history: EmploymentHistory[],
     },
     projects: {
         caption: string,

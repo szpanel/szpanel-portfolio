@@ -82,20 +82,22 @@ const Employment = () => {
                                 display="flex"
                                 alignItems="center"
                             >
-                                {
-                                    iconPath && (
-                                        <Box marginRight={1}>
-                                            <Avatar alt={projectName} src={iconPath} className={classes.avatarSize}/>
-                                        </Box>
-                                    )
-                                }
-                                <Link href={source}>
-                                    <Typography
-                                        variant="h5"
-                                        className={classes.bold}>
-                                        {projectName} - {getYearMonthString(from, YEAR_MONTH_SEPARATOR)} - {getEmploymentEndDate(to)}
-                                    </Typography>
-                                </Link>
+                                <Box display="flex" alignItems="center">
+                                    {
+                                        iconPath && (
+                                            <Box marginRight={1}>
+                                                <Avatar alt={projectName} src={iconPath} className={classes.avatarSize}/>
+                                            </Box>
+                                        )
+                                    }
+                                    <Link href={source}>
+                                        <Typography
+                                            variant="h5"
+                                            className={classes.bold}>
+                                            {projectName} - {getYearMonthString(from, YEAR_MONTH_SEPARATOR)} - {getEmploymentEndDate(to)}
+                                        </Typography>
+                                    </Link>
+                                </Box>
                                 <Divider orientation='vertical' variant='middle' flexItem/>
                                 <Typography variant="h5">
                                     {position}
